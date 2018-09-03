@@ -202,18 +202,16 @@ func handleTable(consul *api.Client, qs []query) (*datasource.DatasourceResponse
 
 				colKey := calculateColumnKey(key, col)
 
+				if firstRow {
+					tableCols = append(tableCols, &datasource.TableColumn{Name: path.Base(colKey)})
+				}
+
 				kv, _, err := consul.KV().Get(colKey, &api.QueryOptions{})
-				var kvKey, kvValue string
+				var kvValue string
 				if err != nil || kv == nil {
-					kvKey = "Not Found"
 					kvValue = "Not Found"
 				} else {
-					lastSlash := strings.LastIndex(kv.Key, "/")
-					kvKey = kv.Key[lastSlash+1:]
 					kvValue = string(kv.Value)
-				}
-				if firstRow {
-					tableCols = append(tableCols, &datasource.TableColumn{Name: kvKey})
 				}
 				tableRowValues = append(tableRowValues, &datasource.RowValue{Kind: datasource.RowValue_TYPE_STRING, StringValue: kvValue})
 			}
@@ -353,18 +351,30 @@ func NewConsulFromReq(req *datasource.DatasourceRequest) (*api.Client, string, e
 		return nil, "", fmt.Errorf("unable to get consulAddr")
 	}
 
-	consul, err := NewConsul(consulAddr, consulToken)
+	consul, err := NewConsul(req.Datasource.Id, consulAddr, consulToken)
 	if err != nil {
 		return nil, "", fmt.Errorf("creating consul client failed: %v", err)
 	}
 	return consul, consulToken, nil
 }
 
-func NewConsul(consulAddr, consulToken string) (*api.Client, error) {
+var consulClientCache = map[int64]*api.Client{}
+
+func NewConsul(datasourceId int64, consulAddr, consulToken string) (*api.Client, error) {
+	if client, ok := consulClientCache[datasourceId]; ok {
+		return client, nil
+	}
+
 	conf := api.DefaultConfig()
 	conf.Address = consulAddr
 	conf.Token = consulToken
 	conf.TLSConfig.InsecureSkipVerify = true
 
-	return api.NewClient(conf)
+	client, err := api.NewClient(conf)
+	if err != nil {
+		return nil, fmt.Errorf("error creating consul client: %v", err)
+	}
+	consulClientCache[datasourceId] = client
+
+	return client, nil
 }

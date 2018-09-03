@@ -18,9 +18,6 @@ import (
 
 func TestHandleTable(t *testing.T) {
 
-	srv, consul := setupTest(t)
-	defer srv.Stop()
-
 	var tests = []struct {
 		query   query
 		golden  string
@@ -106,9 +103,17 @@ func TestHandleTable(t *testing.T) {
 		},
 	}
 
+	srv := setupTestServer(t)
+	defer srv.Stop()
+
 	writeGolden := false
 
 	for _, test := range tests {
+
+		consul, err := NewConsul(1, srv.HTTPAddr, srv.Config.ACLMasterToken)
+		if err != nil {
+			t.Fatalf("could not create consul client: %v", err)
+		}
 
 		qrs, err := handleQueries(consul, "", []query{test.query})
 		if err != nil {
@@ -192,7 +197,7 @@ func diffPrettyText(diffs []diffmatchpatch.Diff) string {
 	return buff.String()
 }
 
-func setupTest(t *testing.T) (*testutil.TestServer, *api.Client) {
+func setupTestServer(t *testing.T) *testutil.TestServer {
 	srv, err := testutil.NewTestServerConfig(func(c *testutil.TestServerConfig) {
 		c.LogLevel = "warn"
 		c.Stdout = ioutil.Discard
@@ -202,7 +207,7 @@ func setupTest(t *testing.T) (*testutil.TestServer, *api.Client) {
 		t.Fatal(err)
 	}
 
-	consul, err := NewConsul(srv.HTTPAddr, srv.Config.ACLMasterToken)
+	consul, err := NewConsul(1, srv.HTTPAddr, srv.Config.ACLMasterToken)
 	if err != nil {
 		t.Fatalf("could not create consul client: %v", err)
 	}
@@ -235,7 +240,7 @@ func setupTest(t *testing.T) (*testutil.TestServer, *api.Client) {
 		}
 	}
 
-	return srv, consul
+	return srv
 }
 
 type Entry struct {
