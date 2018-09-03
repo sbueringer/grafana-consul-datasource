@@ -25,20 +25,20 @@ script:
 - npm run buildgo
 
 before_deploy:
-- cp -r . /tmp/consul-datasource
+- cp -r . /tmp/consul-datasource-${TRAVIS_TAG}
 - cd /tmp
-- rm -rf ./consul-datasource/vendor
-- rm -rf ./consul-datasource/node_modules
-- rm -rf ./consul-datasource/.git
-- rm -rf ./consul-datasource/.idea
-- rm -rf ./consul-datasource/*.iml
-- zip -r consul-datasource.zip consul-datasource-0.0.2
+- rm -rf ./consul-datasource-${TRAVIS_TAG}/vendor
+- rm -rf ./consul-datasource-${TRAVIS_TAG}/node_modules
+- rm -rf ./consul-datasource-${TRAVIS_TAG}/.git
+- rm -rf ./consul-datasource-${TRAVIS_TAG}/.idea
+- rm -rf ./consul-datasource-${TRAVIS_TAG}/*.iml
+- zip -r consul-datasource-${TRAVIS_TAG}.zip consul-datasource-${TRAVIS_TAG}
 
 
 deploy:
 - provider: releases
   api_key: $GITHUB_RELEASE_TOKEN
-  file: /tmp/consul-datasource.zip
+  file: /tmp/consul-datasource-${TRAVIS_TAG}.zip
   overwrite: true
   skip_cleanup: true
   on:
