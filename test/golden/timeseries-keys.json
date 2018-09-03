@@ -1,0 +1,208 @@
+{
+  "results": [
+    {
+      "series": [
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1./",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1.apps/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1.authentication.k8s.io/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1.authorization.k8s.io/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1.autoscaling/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1.batch/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1.crd.projectcalico.org/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1.networking.k8s.io/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1.rbac.authorization.k8s.io/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1.storage.k8s.io/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1alpha1.scheduling.k8s.io/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1beta1.admissionregistration.k8s.io/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1beta1.apiextensions.k8s.io/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1beta1.apps/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1beta1.authentication.k8s.io/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1beta1.authorization.k8s.io/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1beta1.batch/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1beta1.certificates.k8s.io/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1beta1.events.k8s.io/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1beta1.extensions/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1beta1.policy/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1beta1.rbac.authorization.k8s.io/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1beta1.storage.k8s.io/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1beta2.apps/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        },
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v2beta1.autoscaling/",
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

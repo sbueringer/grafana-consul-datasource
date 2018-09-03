@@ -1,0 +1,25 @@
+{
+  "results": [
+    {
+      "series": [
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1.autoscaling/",
+          "tags": {
+            "apiVersion": "apiregistration.k8s.io/v1beta1",
+            "kind": "APIService",
+            "name": "v1.autoscaling",
+            "spec.group": "autoscaling",
+            "spec.groupPriorityMinimum": "17500",
+            "spec.version": "v1",
+            "spec.versionPriority": "15"
+          },
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

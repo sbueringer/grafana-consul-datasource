@@ -1,0 +1,21 @@
+{
+  "results": [
+    {
+      "series": [
+        {
+          "name": "registry/apiregistration.k8s.io/apiservices/v1.authentication.k8s.io/",
+          "tags": {
+            "apiVersion": "apiregistration.k8s.io/v1beta1",
+            "kind": "APIService",
+            "name": "v1.authentication.k8s.io"
+          },
+          "points": [
+            {
+              "value": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,834 @@
+{
+  "results": [
+    {
+      "tables": [
+        {
+          "columns": [
+            {
+              "name": "name"
+            },
+            {
+              "name": "kind"
+            },
+            {
+              "name": "apiVersion"
+            },
+            {
+              "name": "group"
+            },
+            {
+              "name": "groupPriorityMinimum"
+            },
+            {
+              "name": "version"
+            },
+            {
+              "name": "versionPriority"
+            }
+          ],
+          "rows": [
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1."
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "18000"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "1"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1.apps"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apps"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "17800"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "15"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1.authentication.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "authentication.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "17700"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "15"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1.authorization.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "authorization.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "17600"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "15"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1.autoscaling"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "autoscaling"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "17500"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "15"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1.batch"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "batch"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "17400"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "15"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1.crd.projectcalico.org"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "crd.projectcalico.org"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "1000"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "100"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1.networking.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "networking.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "17200"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "15"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1.rbac.authorization.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "rbac.authorization.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "17000"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "15"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1.storage.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "storage.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "16800"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "15"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1alpha1.scheduling.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "scheduling.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "16600"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1alpha1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "9"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1.admissionregistration.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "admissionregistration.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "16700"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "12"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1.apiextensions.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiextensions.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "16700"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "9"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1.apps"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apps"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "17800"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "1"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1.authentication.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "authentication.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "17700"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "9"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1.authorization.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "authorization.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "17600"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "9"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1.batch"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "batch"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "17400"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "9"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1.certificates.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "certificates.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "17300"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "9"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1.events.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "events.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "17750"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "5"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1.extensions"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "extensions"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "17900"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "1"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1.policy"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "policy"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "17100"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "9"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1.rbac.authorization.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "rbac.authorization.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "17000"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "12"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1.storage.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "storage.k8s.io"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "16800"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "9"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta2.apps"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apps"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "17800"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v1beta2"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "9"
+                }
+              ]
+            },
+            {
+              "values": [
+                {
+                  "kind": 4,
+                  "stringValue": "v2beta1.autoscaling"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "APIService"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "apiregistration.k8s.io/v1beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "autoscaling"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "17500"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "v2beta1"
+                },
+                {
+                  "kind": 4,
+                  "stringValue": "9"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
