@@ -1,19 +1,21 @@
 package main
 
 import (
-	"testing"
-	"io/ioutil"
 	"encoding/json"
-	"github.com/hashicorp/consul/testutil"
-	"github.com/hashicorp/consul/api"
-	"path/filepath"
+	"io/ioutil"
 	"os"
 	"path"
+	"path/filepath"
+	"testing"
 
-	"github.com/sergi/go-diff/diffmatchpatch"
+	"github.com/hashicorp/consul/api"
+	"github.com/hashicorp/consul/testutil"
+
 	"bytes"
 	"fmt"
 	"strings"
+
+	"github.com/sergi/go-diff/diffmatchpatch"
 )
 
 func TestHandleTable(t *testing.T) {
@@ -157,7 +159,7 @@ func TestHandleTable(t *testing.T) {
 
 		diffs := dmp.DiffMain(string(golden), string(text), false)
 
-		if ! (len(diffs) == 1 && diffs[0].Type == diffmatchpatch.DiffEqual) {
+		if !(len(diffs) == 1 && diffs[0].Type == diffmatchpatch.DiffEqual) {
 			t.Errorf("query result for query %+v was not as expected, diff is:\n", test.query)
 			fmt.Println(diffPrettyText(diffs))
 		}

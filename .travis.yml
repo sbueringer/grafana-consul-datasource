@@ -10,6 +10,7 @@ cache:
 
 env:
 - NODE_VERSION="8.11.3"
+- CONSUL_VERSION=1.2.2
 
 before_install:
 - env
@@ -17,7 +18,13 @@ before_install:
 - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.9.4
 - export PATH=$HOME/.yarn/bin:$PATH
 
-before_script: yarn install
+before_script:
+- yarn install
+- curl -sLo consul.zip https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip
+- unzip consul.zip
+- mkdir -p ~/bin
+- mv consul ~/bin
+- export PATH="~/bin:$PATH"
 
 # TODO add tests
 script:

@@ -1,18 +1,19 @@
 package main
 
 import (
-	"golang.org/x/net/context"
-	"github.com/grafana/grafana_plugin_model/go/datasource"
-	"github.com/hashicorp/go-plugin"
-	"log"
-	"time"
-	"fmt"
-	"github.com/hashicorp/consul/api"
 	"encoding/json"
+	"fmt"
+	"log"
+	"path"
+	"regexp"
 	"strconv"
 	"strings"
-	"regexp"
-	"path"
+	"time"
+
+	"github.com/grafana/grafana_plugin_model/go/datasource"
+	"github.com/hashicorp/consul/api"
+	"github.com/hashicorp/go-plugin"
+	"golang.org/x/net/context"
 )
 
 type ConsulDatasource struct {
@@ -262,7 +263,7 @@ func generateQueryResultFromKVPairs(kvs []*api.KVPair) (*datasource.QueryResult,
 	}, nil
 }
 
-func generateQueryResultFromKeys(keys []string) (*datasource.QueryResult) {
+func generateQueryResultFromKeys(keys []string) *datasource.QueryResult {
 	var series []*datasource.TimeSeries
 
 	for _, key := range keys {
