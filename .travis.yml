@@ -9,8 +9,9 @@ cache:
   - node_modules
 
 env:
-- NODE_VERSION="8.11.3"
-- CONSUL_VERSION=1.2.2
+  global:
+  - NODE_VERSION="8.11.3"
+  - CONSUL_VERSION=1.2.2
 
 before_install:
 - env
