@@ -112,7 +112,7 @@ func TestHandleTable(t *testing.T) {
 
 	for _, test := range tests {
 
-		consul, err := NewConsul(1, srv.HTTPAddr, srv.Config.ACLMasterToken)
+		consul, err := newConsul(1, srv.HTTPAddr, srv.Config.ACLMasterToken)
 		if err != nil {
 			t.Fatalf("could not create consul client: %v", err)
 		}
@@ -209,7 +209,7 @@ func setupTestServer(t *testing.T) *testutil.TestServer {
 		t.Fatal(err)
 	}
 
-	consul, err := NewConsul(1, srv.HTTPAddr, srv.Config.ACLMasterToken)
+	consul, err := newConsul(1, srv.HTTPAddr, srv.Config.ACLMasterToken)
 	if err != nil {
 		t.Fatalf("could not create consul client: %v", err)
 	}

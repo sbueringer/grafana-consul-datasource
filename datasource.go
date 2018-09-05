@@ -16,14 +16,16 @@ import (
 	"golang.org/x/net/context"
 )
 
+// ConsulDatasource implements a datasource which connects to a Consul instance
 type ConsulDatasource struct {
 	plugin.NetRPCUnsupportedPlugin
 }
 
+// Query returns responses to req based on data in Consul
 func (t *ConsulDatasource) Query(ctx context.Context, req *datasource.DatasourceRequest) (*datasource.DatasourceResponse, error) {
 	log.Printf("called consul plugin with: \n%v", req)
 
-	consul, consulToken, err := NewConsulFromReq(req)
+	consul, consulToken, err := newConsulFromReq(req)
 	if err != nil {
 		return generateErrorResponse(err), nil
 	}
@@ -341,7 +343,7 @@ type query struct {
 	Columns      string `json:"columns"`
 }
 
-func NewConsulFromReq(req *datasource.DatasourceRequest) (*api.Client, string, error) {
+func newConsulFromReq(req *datasource.DatasourceRequest) (*api.Client, string, error) {
 	consulToken := req.Datasource.DecryptedSecureJsonData["consulToken"]
 	if consulToken == "" {
 		return nil, "", fmt.Errorf("unable to get consulToken")
@@ -352,7 +354,7 @@ func NewConsulFromReq(req *datasource.DatasourceRequest) (*api.Client, string, e
 		return nil, "", fmt.Errorf("unable to get consulAddr")
 	}
 
-	consul, err := NewConsul(req.Datasource.Id, consulAddr, consulToken)
+	consul, err := newConsul(req.Datasource.Id, consulAddr, consulToken)
 	if err != nil {
 		return nil, "", fmt.Errorf("creating consul client failed: %v", err)
 	}
@@ -361,7 +363,7 @@ func NewConsulFromReq(req *datasource.DatasourceRequest) (*api.Client, string, e
 
 var consulClientCache = map[int64]*api.Client{}
 
-func NewConsul(datasourceId int64, consulAddr, consulToken string) (*api.Client, error) {
+func newConsul(datasourceId int64, consulAddr, consulToken string) (*api.Client, error) {
 	if client, ok := consulClientCache[datasourceId]; ok {
 		return client, nil
 	}
