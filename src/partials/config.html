@@ -1,13 +1,13 @@
-<datasource-http-settings current="ctrl.current">
-</datasource-http-settings>
 
-<h3 class="page-heading">Consul Details</h3>
+<h3 class="page-heading">Consul</h3>
 
 <div class="gf-form-group">
-
     <div class="gf-form max-width-30">
-        <span class="gf-form-label width-7">Consul Token</span>
+        <span class="gf-form-label width-7">Address</span>
+        <input type="text" class="gf-form-input" ng-model='ctrl.current.jsonData.consulAddr' placeholder="CONSUL_ADDRESS" required>
+    </div>
+    <div class="gf-form max-width-30">
+        <span class="gf-form-label width-7">Token</span>
         <input type="text" class="gf-form-input" ng-model='ctrl.current.secureJsonData.consulToken' placeholder="CONSUL_TOKEN" required>
     </div>
-
 </div>

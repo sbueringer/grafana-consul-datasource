@@ -8,13 +8,11 @@ import isUndefined from 'lodash/isUndefined';
 export class ConsulDatasource {
 
   name: string;
-  url: string;
   id: string;
 
     /** @ngInject **/
   constructor(instanceSettings, private $q, private backendSrv, private templateSrv) {
     this.name = instanceSettings.name;
-    this.url = instanceSettings.url;
     this.id = instanceSettings.id;
   }
 

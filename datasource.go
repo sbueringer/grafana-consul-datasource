@@ -349,7 +349,13 @@ func newConsulFromReq(req *datasource.DatasourceRequest) (*api.Client, string, e
 		return nil, "", fmt.Errorf("unable to get consulToken")
 	}
 
-	consulAddr := req.Datasource.Url
+	var jsonData map[string]interface{}
+	err := json.Unmarshal([]byte(req.Datasource.JsonData), &jsonData)
+	if err != nil {
+		return nil, "", fmt.Errorf("unable to get consulAddr: %v", err)
+	}
+
+	consulAddr := jsonData["consulAddr"].(string)
 	if consulAddr == "" {
 		return nil, "", fmt.Errorf("unable to get consulAddr")
 	}
