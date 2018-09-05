@@ -27,8 +27,8 @@ before_script:
 - mv consul ~/bin
 - export PATH="~/bin:$PATH"
 
-# TODO add tests
 script:
+- npm run test
 - npm run build
 - npm run buildgo
 - go test -race -coverprofile=coverage.txt -covermode=atomic
