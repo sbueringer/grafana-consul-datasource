@@ -1,19 +1,17 @@
 
+# Grafana datasource for Consul
 
-[![Travis](https://img.shields.io/travis/sbueringer/consul-datasource.svg)](https://travis-ci.org/sbueringer/consul-datasource)[![Codecov](https://img.shields.io/codecov/c/github/codecov/example-python.svg)](https://codecov.io/gh/sbueringer/consul-datasource)[![CodeFactor](https://www.codefactor.io/repository/github/sbueringer/consul-datasource/badge)](https://www.codefactor.io/repository/github/sbueringer/consul-datasource)[![GoReportCard](https://goreportcard.com/badge/github.com/sbueringer/consul-datasource?style=plastic)](https://goreportcard.com/report/github.com/sbueringer/consul-datasource)[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
-![GitHub release](https://img.shields.io/github/release/sbueringer/consul-datasource.svg)
+[![Travis](https://img.shields.io/travis/sbueringer/consul-datasource.svg)](https://travis-ci.org/sbueringer/consul-datasource)[![Codecov](https://img.shields.io/codecov/c/github/sbueringer/consul-datasource.svg)](https://codecov.io/gh/sbueringer/consul-datasource)[![CodeFactor](https://www.codefactor.io/repository/github/sbueringer/consul-datasource/badge)](https://www.codefactor.io/repository/github/sbueringer/consul-datasource)[![GoReportCard](https://goreportcard.com/badge/github.com/sbueringer/consul-datasource?style=plastic)](https://goreportcard.com/report/github.com/sbueringer/consul-datasource)![GitHub release](https://img.shields.io/github/release/sbueringer/consul-datasource.svg)
 
-
-# Grafana datasource for Consul 
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues) 
 
 This datasource lets you integrate key value data from Consul in Grafana dashboards.
 
-[TODO add screenshot]
+![Overview](https://github.com/sbueringer/consul-datasource/docs/overview.png)
 
 # Usage
 
-The data can be used in **table** and **single-stat** panels. The following examples are based on the 
-example server & data available in the [example folder](https://github.com/sbueringer/consul-datasource/example/README.md).
+The data can be used in **table** and **single-stat** panels. The following explanations are based on the example available in the [example folder](https://github.com/sbueringer/consul-datasource/example/README.md).
 
 ## Adding the datasource
 
@@ -35,9 +33,3 @@ TODO all 4 types... (if possible)
 TODO
 
 
-TODO Breaking:
-* , comma separated
-* plugin id
-
-TODO PR:
-* Ask because of plugin-id best-practise
