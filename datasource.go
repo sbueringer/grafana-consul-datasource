@@ -32,7 +32,7 @@ func (t *ConsulDatasource) Query(ctx context.Context, req *datasource.Datasource
 
 	queries, err := parseQueries(req)
 	if err != nil {
-		return nil, fmt.Errorf("error parsing queries: %v", err)
+		return generateErrorResponse(fmt.Errorf("error parsing queries: %v", err)), nil
 	}
 
 	return handleQueries(consul, consulToken, queries)
@@ -60,7 +60,7 @@ func handleTest(consul *api.Client, consulToken string) (*datasource.DatasourceR
 	if err != nil {
 		return nil, fmt.Errorf("error retrieving acl info for token: %v", err)
 	}
-	if e.ID == consulToken {
+	if e != nil && e.ID == consulToken {
 		return &datasource.DatasourceResponse{}, nil
 	}
 	return &datasource.DatasourceResponse{
@@ -76,17 +76,19 @@ func handleTimeseries(consul *api.Client, qs []query) (*datasource.DatasourceRes
 	var qrs []*datasource.QueryResult
 	for _, q := range qs {
 
+		target := cleanTarget(q.Target)
+
 		var qr *datasource.QueryResult
 		var err error
 		switch q.Type {
 		case "get":
-			qr, err = handleGet(consul, q.Target)
+			qr, err = handleGet(consul, target)
 		case "keys":
-			qr, err = handleKeys(consul, q.Target)
+			qr, err = handleKeys(consul, target)
 		case "tags":
-			qr, err = handleTags(consul, q.Target, false)
+			qr, err = handleTags(consul, target, false)
 		case "tagsrec":
-			qr, err = handleTags(consul, q.Target, true)
+			qr, err = handleTags(consul, target, true)
 		}
 		if err != nil {
 			return nil, err
@@ -95,6 +97,10 @@ func handleTimeseries(consul *api.Client, qs []query) (*datasource.DatasourceRes
 	}
 
 	return &datasource.DatasourceResponse{Results: qrs}, nil
+}
+
+func cleanTarget(target string) string {
+	return strings.Replace(target, "\\.", ".", -1)
 }
 
 func handleGet(consul *api.Client, target string) (*datasource.QueryResult, error) {
@@ -178,7 +184,7 @@ func handleTable(consul *api.Client, qs []query) (*datasource.DatasourceResponse
 			prefix = q.Target[:firstStar]
 		}
 
-		columns := strings.Split(q.Columns, " ")
+		columns := strings.Split(q.Columns, ",")
 
 		keys, _, err := consul.KV().Keys(prefix, "", &api.QueryOptions{})
 		if err != nil {
@@ -367,10 +373,16 @@ func newConsulFromReq(req *datasource.DatasourceRequest) (*api.Client, string, e
 	return consul, consulToken, nil
 }
 
-var consulClientCache = map[int64]*api.Client{}
+type consulClientEntry struct{
+	consulAddr string
+	consulToken string
+	client *api.Client
+}
+
+var consulClientCache = map[int64]consulClientEntry{}
 
 func newConsul(datasourceId int64, consulAddr, consulToken string) (*api.Client, error) {
-	if client, ok := consulClientCache[datasourceId]; ok {
+	if client, ok := clientInCache(datasourceId, consulAddr, consulToken); ok {
 		return client, nil
 	}
 
@@ -383,7 +395,18 @@ func newConsul(datasourceId int64, consulAddr, consulToken string) (*api.Client,
 	if err != nil {
 		return nil, fmt.Errorf("error creating consul client: %v", err)
 	}
-	consulClientCache[datasourceId] = client
+	consulClientCache[datasourceId] = consulClientEntry{consulAddr, consulToken, client}
 
 	return client, nil
+}
+
+func clientInCache(datasourceId int64, consulAddr, consulToken string) (*api.Client, bool) {
+	entry, ok := consulClientCache[datasourceId]
+	if !ok {
+		return nil, false
+	}
+	if entry.consulAddr != consulAddr || entry.consulToken != consulToken {
+		return nil, false
+	}
+	return entry.client, true
 }

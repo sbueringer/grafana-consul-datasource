@@ -2,6 +2,7 @@
 import TemplateSrvStub from './lib/TemplateSrvStub';
 import {Datasource} from '../src/module';
 import q from 'q';
+import {beforeEach, describe, expect, it} from "./lib/common";
 
 describe('GenericDatasource', () => {
     const ctx: any = {
@@ -14,14 +15,14 @@ describe('GenericDatasource', () => {
         ctx.ds = new Datasource({}, ctx.$q, ctx.backendSrv, ctx.templateSrv);
     });
 
-    it('should return an empty array when no targets are set', (done) => {
+    it('query should return an empty array when no targets are set', (done) => {
         ctx.ds.query({targets: []}).then((result) => {
             expect(result.data).toHaveLength(0);
             done();
         });
     });
 
-    it('should return the server results when a target is set', (done) => {
+    it('query should return the server timeseries results when a target is set', (done) => {
         ctx.backendSrv.datasourceRequest = function (request) {
             return ctx.$q.when({
                 _request: request,
@@ -29,12 +30,10 @@ describe('GenericDatasource', () => {
                     results: {
                         "": {
                             series:
-                                [
-                                    {
-                                        name: 'X',
-                                        points: [1, 2, 3],
-                                    },
-                                ]
+                                [{
+                                    name: 'X',
+                                    points: [1, 2, 3],
+                                },]
                         }
                     }
                 }
@@ -45,7 +44,16 @@ describe('GenericDatasource', () => {
             return data;
         };
 
-        ctx.ds.query({targets: ['hits']}).then((result) => {
+        ctx.ds.query({
+                targets: [{
+                    target: 'hits',
+                }],
+                range: {
+                    from: new Date(2012, 4, 1),
+                    to: new Date(2018, 4, 1)
+                }
+            }
+        ).then((result) => {
             expect(result._request.data.queries).toHaveLength(1);
 
             const series = result.data[0];
@@ -55,16 +63,24 @@ describe('GenericDatasource', () => {
         });
     });
 
-    //TODO implement tests for all query types !!! table get set keys tags tagsrec test
-    it('should return the metric results when a target is null', (done) => {
+    it('query should return the server timeseries results when a target is set and evaluate legendFormat', (done) => {
         ctx.backendSrv.datasourceRequest = function (request) {
             return ctx.$q.when({
                 _request: request,
-                data: [
-                    'metric_0',
-                    'metric_1',
-                    'metric_2',
-                ],
+                data: {
+                    results: {
+                        "": {
+                            series:
+                                [{
+                                    name: 'X',
+                                    points: [1, 2, 3],
+                                    tags: {
+                                        name: "testName"
+                                    }
+                                },]
+                        }
+                    }
+                }
             });
         };
 
@@ -72,228 +88,122 @@ describe('GenericDatasource', () => {
             return data;
         };
 
-        ctx.ds.metricFindQuery({target: null}).then((result) => {
-            expect(result).toHaveLength(3);
-            expect(result[0].text).toBe('metric_0');
-            expect(result[0].value).toBe('metric_0');
-            expect(result[1].text).toBe('metric_1');
-            expect(result[1].value).toBe('metric_1');
-            expect(result[2].text).toBe('metric_2');
-            expect(result[2].value).toBe('metric_2');
+        ctx.ds.query({
+                targets: [{
+                    target: 'hits',
+                    legendFormat: "{{ name }}"
+                },
+                    {
+                        target: 'hits2',
+                        hide: true,
+                    }],
+                range: {
+                    from: new Date(2012, 4, 1),
+                    to: new Date(2018, 4, 1)
+                }
+            }
+        ).then((result) => {
+            expect(result._request.data.queries).toHaveLength(1);
+
+            const series = result.data[0];
+            expect(series.target).toBe('testName');
+            expect(series.datapoints).toHaveLength(3);
             done();
         });
     });
 
-    it('should return the metric target results when a target is set', (done) => {
+    it('query should return the server table results when a target is set', (done) => {
         ctx.backendSrv.datasourceRequest = function (request) {
-            const target = request.data.target;
-            const result = [target + '_0', target + '_1', target + '_2'];
-
             return ctx.$q.when({
                 _request: request,
-                data: result,
+                data: {
+                    results: {
+                        "": {
+                            tables:
+                                [{
+                                    columns: [{name: "columnName"}],
+                                    rows: [{values: [{kind: 4, stringValue: "v1."}]}]
+                                },]
+                        }
+                    }
+                }
             });
         };
-
         ctx.templateSrv.replace = function (data) {
             return data;
         };
 
-        ctx.ds.metricFindQuery('search').then((result) => {
-            expect(result).toHaveLength(3);
-            expect(result[0].text).toBe('search_0');
-            expect(result[0].value).toBe('search_0');
-            expect(result[1].text).toBe('search_1');
-            expect(result[1].value).toBe('search_1');
-            expect(result[2].text).toBe('search_2');
-            expect(result[2].value).toBe('search_2');
+        ctx.ds.query({targets: ['hits']}).then((result) => {
+            expect(result._request.data.queries).toHaveLength(1);
+
+            const table = result.data[0];
+            expect(table.type).toBe('table');
+            expect(table.columns).toHaveLength(1);
+            expect(table.rows).toHaveLength(1);
             done();
         });
     });
 
-    it('should return the metric results when the target is an empty string', (done) => {
-        ctx.backendSrv.datasourceRequest = function (request) {
-            return ctx.$q.when({
-                _request: request,
-                data: [
-                    'metric_0',
-                    'metric_1',
-                    'metric_2',
-                ],
-            });
-        };
+    it('renderTemplate should render a template', (done) => {
+        const rendered = ctx.ds.renderTemplate("{{ version }} {{ unknown }}", {version: "1.0"});
 
-        ctx.templateSrv.replace = function (data) {
-            return data;
-        };
-
-        ctx.ds.metricFindQuery('').then((result) => {
-            expect(result).toHaveLength(3);
-            expect(result[0].text).toBe('metric_0');
-            expect(result[0].value).toBe('metric_0');
-            expect(result[1].text).toBe('metric_1');
-            expect(result[1].value).toBe('metric_1');
-            expect(result[2].text).toBe('metric_2');
-            expect(result[2].value).toBe('metric_2');
-            done();
-        });
-    });
-
-    it('should return the metric results when the args are an empty object', (done) => {
-        ctx.backendSrv.datasourceRequest = function (request) {
-            return ctx.$q.when({
-                _request: request,
-                data: [
-                    'metric_0',
-                    'metric_1',
-                    'metric_2',
-                ],
-            });
-        };
-
-        ctx.templateSrv.replace = function (data) {
-            return data;
-        };
-
-        ctx.ds.metricFindQuery().then((result) => {
-            expect(result).toHaveLength(3);
-            expect(result[0].text).toBe('metric_0');
-            expect(result[0].value).toBe('metric_0');
-            expect(result[1].text).toBe('metric_1');
-            expect(result[1].value).toBe('metric_1');
-            expect(result[2].text).toBe('metric_2');
-            expect(result[2].value).toBe('metric_2');
-            done();
-        });
-    });
-
-    it('should return the metric target results when the args are a string', (done) => {
-        ctx.backendSrv.datasourceRequest = function (request) {
-            const target = request.data.target;
-            const result = [target + '_0', target + '_1', target + '_2'];
-
-            return ctx.$q.when({
-                _request: request,
-                data: result,
-            });
-        };
-
-        ctx.templateSrv.replace = function (data) {
-            return data;
-        };
-
-        ctx.ds.metricFindQuery('search').then((result) => {
-            expect(result).toHaveLength(3);
-            expect(result[0].text).toBe('search_0');
-            expect(result[0].value).toBe('search_0');
-            expect(result[1].text).toBe('search_1');
-            expect(result[1].value).toBe('search_1');
-            expect(result[2].text).toBe('search_2');
-            expect(result[2].value).toBe('search_2');
-            done();
-        });
-    });
-
-    it('should return data as text and as value', (done) => {
-        const result = ctx.ds.mapToTextValue({data: ['zero', 'one', 'two']});
-
-        expect(result).toHaveLength(3);
-        expect(result[0].text).toBe('zero');
-        expect(result[0].value).toBe('zero');
-        expect(result[1].text).toBe('one');
-        expect(result[1].value).toBe('one');
-        expect(result[2].text).toBe('two');
-        expect(result[2].value).toBe('two');
+        expect(rendered).toBe("1.0 unknown");
         done();
     });
 
-    it('should return text as text and value as value', (done) => {
-        const data = [
-            {text: 'zero', value: 'value_0'},
-            {text: 'one', value: 'value_1'},
-            {text: 'two', value: 'value_2'},
-        ];
-
-        const result = ctx.ds.mapToTextValue({data});
-
-        expect(result).toHaveLength(3);
-        expect(result[0].text).toBe('zero');
-        expect(result[0].value).toBe('value_0');
-        expect(result[1].text).toBe('one');
-        expect(result[1].value).toBe('value_1');
-        expect(result[2].text).toBe('two');
-        expect(result[2].value).toBe('value_2');
-        done();
-    });
-
-    it('should return data as text and index as value', (done) => {
-        const data = [
-            {a: 'zero', b: 'value_0'},
-            {a: 'one', b: 'value_1'},
-            {a: 'two', b: 'value_2'},
-        ];
-
-        const result = ctx.ds.mapToTextValue({data});
-
-        expect(result).toHaveLength(3);
-        expect(result[0].text).toBe(data[0]);
-        expect(result[0].value).toBe(0);
-        expect(result[1].text).toBe(data[1]);
-        expect(result[1].value).toBe(1);
-        expect(result[2].text).toBe(data[2]);
-        expect(result[2].value).toBe(2);
-        done();
-    });
-
-    // Not implemented
-    xit('should support tag keys', (done) => {
-        const data = [
-            {type: 'string', text: 'One', key: 'one'},
-            {type: 'string', text: 'two', key: 'Two'},
-        ];
-
+    it('testDatasource should return success if test works', (done) => {
         ctx.backendSrv.datasourceRequest = function (request) {
             return ctx.$q.when({
-                data,
                 _request: request,
+                status: 200,
+                data: {}
             });
         };
-
-        ctx.ds.getTagKeys().then((result) => {
-            expect(result).toHaveLength(2);
-            expect(result[0].type).toBe(data[0].type);
-            expect(result[0].text).toBe(data[0].text);
-            expect(result[0].key).toBe(data[0].key);
-            expect(result[1].type).toBe(data[1].type);
-            expect(result[1].text).toBe(data[1].text);
-            expect(result[1].key).toBe(data[1].key);
+        ctx.ds.testDatasource().then((result) => {
+            expect(result.status).toBe('success');
             done();
         });
     });
 
-    // Not implemented
-    xit('should support tag values', (done) => {
-        const data = [
-            {key: 'eins', text: 'Eins!'},
-            {key: 'zwei', text: 'Zwei'},
-            {key: 'drei', text: 'Drei!'},
-        ];
-
+    it('testDatasource should return error if test did not work', (done) => {
         ctx.backendSrv.datasourceRequest = function (request) {
             return ctx.$q.when({
-                data,
                 _request: request,
+                status: 401,
+                data: {}
             });
         };
+        ctx.ds.testDatasource().then((result) => {
+            expect(result.status).toBe('error');
+            done();
+        });
+    });
 
-        ctx.ds.getTagValues().then((result) => {
-            expect(result).toHaveLength(3);
-            expect(result[0].text).toBe(data[0].text);
-            expect(result[0].key).toBe(data[0].key);
-            expect(result[1].text).toBe(data[1].text);
-            expect(result[1].key).toBe(data[1].key);
-            expect(result[2].text).toBe(data[2].text);
-            expect(result[2].key).toBe(data[2].key);
+    it('metricFindQuery should return results', (done) => {
+        ctx.backendSrv.datasourceRequest = function (request) {
+            return ctx.$q.when({
+                _request: request,
+                data: {
+                    results: {
+                        "": {
+                            series: [{
+                                name: "apiVersion",
+                                points: [{
+                                    value: 1
+                                }]
+                            }]
+                        }
+                    }
+                }
+            })
+        };
+        ctx.templateSrv.replace = function (data) {
+            return data;
+        };
+        ctx.ds.metricFindQuery("registry/").then((result) => {
+            expect(result).toHaveLength(1);
+            expect(result[0].text).toBe('apiVersion');
+            expect(result[0].value).toBe('apiVersion');
             done();
         });
     });

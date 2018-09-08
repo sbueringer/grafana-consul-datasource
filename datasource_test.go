@@ -16,23 +16,111 @@ import (
 	"strings"
 
 	"github.com/sergi/go-diff/diffmatchpatch"
+	"context"
+	"github.com/grafana/grafana_plugin_model/go/datasource"
 )
 
-func TestHandleTable(t *testing.T) {
+func TestQuery(t *testing.T) {
+
+	srv, _ := setupTestServer(t)
+	defer srv.Stop()
 
 	var tests = []struct {
-		query   query
-		golden  string
-		wantErr string
+		dr          *datasource.DatasourceRequest
+		wantErr     bool
 	}{
 		{
-			query: query{
-				Type: "test",
+			dr: &datasource.DatasourceRequest{
+				Datasource: &datasource.DatasourceInfo{
+					DecryptedSecureJsonData: map[string]string{
+						"consulToken": srv.Config.ACLMasterToken,
+					},
+					JsonData: fmt.Sprintf("{\"consulAddr\":\"%s\"}", srv.HTTPAddr),
+				},
+				Queries: []*datasource.Query{
+					{
+						ModelJson: "{\"Type\":\"test\"}",
+					},
+				},
 			},
-			wantErr: "ACL support disabled",
+			wantErr: false,
 		},
 		{
-			query: query{
+			dr: &datasource.DatasourceRequest{
+				Datasource: &datasource.DatasourceInfo{
+					DecryptedSecureJsonData: map[string]string{
+						"consulToken": srv.Config.ACLMasterToken,
+					},
+					JsonData: fmt.Sprintf("{\"consulAddr\":\"%s\"}", srv.HTTPAddr),
+				},
+				Queries: []*datasource.Query{
+					{
+						ModelJson: "{abc}",
+					},
+				},
+			},
+			wantErr: true,
+		},
+		{
+			dr: &datasource.DatasourceRequest{
+				Datasource: &datasource.DatasourceInfo{
+					JsonData: fmt.Sprintf("{\"consulAddr\":\"%s\"}", srv.HTTPAddr),
+				},
+			},
+			wantErr: true,
+		},
+	}
+
+	ds := &ConsulDatasource{}
+
+	for _, test := range tests {
+		dr, err := ds.Query(context.Background(), test.dr)
+
+		if !test.wantErr && err != nil {
+			t.Fatalf("Expected no error, but received one: %v", err)
+		}
+
+		if !test.wantErr && len(dr.Results) > 0 {
+			t.Fatalf("Expected no results, but received: %+v", dr.Results)
+		}
+
+		if test.wantErr && dr.Results[0].Error == "" {
+			t.Fatal("Expected error, but didn't got one")
+		}
+	}
+}
+
+func TestHandleQueries(t *testing.T) {
+
+	var tests = []struct {
+		query       *query
+		golden      string
+		consulToken string
+		wantErr     string
+	}{
+		{
+			query:  &query{},
+			golden: "empty-query-error.json",
+		},
+		{
+			query:  nil,
+			golden: "no-query-error.json",
+		},
+		{
+			query: &query{
+				Type: "test",
+			},
+			golden: "test.json",
+		},
+		{
+			query: &query{
+				Type: "test",
+			},
+			consulToken: "wrongToken",
+			golden:      "test-error.json",
+		},
+		{
+			query: &query{
 				Format: "timeseries",
 				Type:   "get",
 				Target: "registry/apiregistration.k8s.io/apiservices/v1beta1.rbac.authorization.k8s.io/spec/groupPriorityMinimum",
@@ -40,7 +128,7 @@ func TestHandleTable(t *testing.T) {
 			golden: "timeseries-get.json",
 		},
 		{
-			query: query{
+			query: &query{
 				Format: "timeseries",
 				Type:   "get",
 				Target: "registry/apiregistration.k8s.io/apiservices/v1beta1.rbac.authorization.k8s.io/spec/groupPriorityMinimum/",
@@ -48,7 +136,7 @@ func TestHandleTable(t *testing.T) {
 			golden: "timeseries-get.json",
 		},
 		{
-			query: query{
+			query: &query{
 				Format: "timeseries",
 				Type:   "keys",
 				Target: "registry/apiregistration.k8s.io/apiservices",
@@ -56,7 +144,7 @@ func TestHandleTable(t *testing.T) {
 			golden: "timeseries-keys.json",
 		},
 		{
-			query: query{
+			query: &query{
 				Format: "timeseries",
 				Type:   "keys",
 				Target: "registry/apiregistration.k8s.io/apiservices/",
@@ -64,7 +152,7 @@ func TestHandleTable(t *testing.T) {
 			golden: "timeseries-keys.json",
 		},
 		{
-			query: query{
+			query: &query{
 				Format: "timeseries",
 				Type:   "tags",
 				Target: "registry/apiregistration.k8s.io/apiservices/v1.authentication.k8s.io",
@@ -72,7 +160,7 @@ func TestHandleTable(t *testing.T) {
 			golden: "timeseries-tags.json",
 		},
 		{
-			query: query{
+			query: &query{
 				Format: "timeseries",
 				Type:   "tags",
 				Target: "registry/apiregistration.k8s.io/apiservices/v1.authentication.k8s.io/",
@@ -80,7 +168,7 @@ func TestHandleTable(t *testing.T) {
 			golden: "timeseries-tags.json",
 		},
 		{
-			query: query{
+			query: &query{
 				Format: "timeseries",
 				Type:   "tagsrec",
 				Target: "registry/apiregistration.k8s.io/apiservices/v1.autoscaling",
@@ -88,7 +176,7 @@ func TestHandleTable(t *testing.T) {
 			golden: "timeseries-tagsrec.json",
 		},
 		{
-			query: query{
+			query: &query{
 				Format: "timeseries",
 				Type:   "tagsrec",
 				Target: "registry/apiregistration.k8s.io/apiservices/v1.autoscaling/",
@@ -96,28 +184,42 @@ func TestHandleTable(t *testing.T) {
 			golden: "timeseries-tagsrec.json",
 		},
 		{
-			query: query{
+			query: &query{
+				Format: "timeseries",
+				Type:   "unknown",
+				Target: "registry",
+			},
+			golden: "timeseries-unknown.json",
+		},
+		{
+			query: &query{
 				Format:  "table",
 				Target:  "registry/apiregistration.k8s.io/apiservices/*/name",
-				Columns: "../name ../kind ../apiVersion ../spec/group ../spec/groupPriorityMinimum ../spec/version ../spec/versionPriority",
+				Columns: "../name,../kind,../apiVersion,../spec/group,../spec/groupPriorityMinimum,../spec/version,../spec/versionPriority",
 			},
 			golden: "table.json",
 		},
 	}
 
-	srv := setupTestServer(t)
+	srv, consul := setupTestServer(t)
 	defer srv.Stop()
 
 	writeGolden := false
+	writeGolden = true
 
 	for _, test := range tests {
 
-		consul, err := newConsul(1, srv.HTTPAddr, srv.Config.ACLMasterToken)
-		if err != nil {
-			t.Fatalf("could not create consul client: %v", err)
+		consulToken := test.consulToken
+		if consulToken == "" {
+			consulToken = srv.Config.ACLMasterToken
 		}
 
-		qrs, err := handleQueries(consul, "", []query{test.query})
+		var qs []query
+		if test.query != nil {
+			qs = append(qs, *test.query)
+		}
+
+		qrs, err := handleQueries(consul, consulToken, qs)
 		if err != nil {
 			if test.wantErr == "" {
 				t.Fatalf("error handling queries: %v", err)
@@ -135,10 +237,14 @@ func TestHandleTable(t *testing.T) {
 		}
 
 		// Overwrite timestamp, so the results can be compared against golden
-		for _, r := range qrs.Results {
-			for _, s := range r.Series {
-				for _, p := range s.Points {
-					p.Timestamp = 0
+		if qrs.Results != nil {
+			for _, r := range qrs.Results {
+				if r != nil {
+					for _, s := range r.Series {
+						for _, p := range s.Points {
+							p.Timestamp = 0
+						}
+					}
 				}
 			}
 		}
@@ -199,11 +305,15 @@ func diffPrettyText(diffs []diffmatchpatch.Diff) string {
 	return buff.String()
 }
 
-func setupTestServer(t *testing.T) *testutil.TestServer {
+func setupTestServer(t *testing.T) (*testutil.TestServer, *api.Client) {
 	srv, err := testutil.NewTestServerConfig(func(c *testutil.TestServerConfig) {
+		//c.Stdout = ioutil.Discard
+		//c.Stderr = ioutil.Discard
+		c.Datacenter = "default"
+		c.ACLDefaultPolicy = "allow"
+		c.ACLDatacenter = "default"
+		c.ACLMasterToken = "master"
 		c.LogLevel = "warn"
-		c.Stdout = ioutil.Discard
-		c.Stderr = ioutil.Discard
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -212,6 +322,15 @@ func setupTestServer(t *testing.T) *testutil.TestServer {
 	consul, err := newConsul(1, srv.HTTPAddr, srv.Config.ACLMasterToken)
 	if err != nil {
 		t.Fatalf("could not create consul client: %v", err)
+	}
+
+	_, _, err = consul.ACL().Create(&api.ACLEntry{
+		ID:    "master",
+		Type:  "client",
+		Rules: "key \"\" { policy = \"write\" }",
+	}, &api.WriteOptions{})
+	if err != nil {
+		panic(fmt.Errorf("could not create master acl: %v", err))
 	}
 
 	files, err := filepath.Glob("test/*.json")
@@ -242,7 +361,7 @@ func setupTestServer(t *testing.T) *testutil.TestServer {
 		}
 	}
 
-	return srv
+	return srv, consul
 }
 
 type Entry struct {
