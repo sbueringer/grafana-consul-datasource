@@ -11,7 +11,7 @@ This datasource lets you integrate key value data from Consul in Grafana dashboa
 
 # Usage
 
-The data can be used in **table** and **single-stat** panels. The following explanations are based on the example available in the [example folder](https://github.com/sbueringer/consul-datasource/example/README.md).
+The data can be used in **table** and **single-stat** panels. The following explanations are based on the example available in the [example folder](https://github.com/sbueringer/consul-datasource/tree/master/example).
 
 ## Adding the datasource
 
