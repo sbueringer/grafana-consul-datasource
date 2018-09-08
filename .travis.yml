@@ -33,13 +33,12 @@ before_script:
 script:
 - npm run test
 - npm run build
-- istanbul cover ./node_modules/mocha/bin/_mocha --reporter lcovonly -- -R spec
-- codecov
 - npm run buildgo
 - go test -race -coverprofile=coverage.txt -covermode=atomic
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)
+- codecov
 
 before_deploy:
 - cp -r . /tmp/consul-datasource-${TRAVIS_TAG}
