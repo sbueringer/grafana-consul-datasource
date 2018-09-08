@@ -13,6 +13,7 @@ describe('ConsulDatasource', () => {
     beforeEach(() => {
         ctx.$q = q;
         ctx.ds = new Datasource({}, ctx.$q, ctx.backendSrv, ctx.templateSrv);
+        ctx.ds.debug = true;
     });
 
     it('query should return an empty array when no targets are set', (done) => {

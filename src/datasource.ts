@@ -9,6 +9,7 @@ export class ConsulDatasource {
 
     name: string;
     id: string;
+    debug: boolean = false;
 
     /** @ngInject **/
     constructor(instanceSettings, private $q, private backendSrv, private templateSrv) {
@@ -17,7 +18,7 @@ export class ConsulDatasource {
     }
 
     query(options) {
-        console.log('query: ' + JSON.stringify(options));
+        if (this.debug) { console.log('query: ' + JSON.stringify(options)); }
 
         let activeTargets: { [key:string]:any; } = {};
         // const activeTargets: any[] = [];
@@ -36,13 +37,12 @@ export class ConsulDatasource {
         return this.doRequest({data: query})
             .then(result => {
 
-                console.log('results pre-table/timeseries: ' + JSON.stringify(result));
-                //TODO support multiple
+                if (this.debug) { console.log('results pre-table/timeseries: ' + JSON.stringify(result)); }
 
                 const datas: any[] = [];
 
                 _.each(result.data.results, (results, refId) => {
-                    console.log('single result pre-table/timeseries: ' + JSON.stringify(results));
+                    if (this.debug) { console.log('single result pre-table/timeseries: ' + JSON.stringify(results)); }
 
                     if (results.tables && results.tables.length > 0) {
                         const data = results.tables[0];
@@ -65,7 +65,7 @@ export class ConsulDatasource {
                         });
                     }
                 });
-                console.log('result query: ' + JSON.stringify({data: datas}));
+                if (this.debug) { console.log('result query: ' + JSON.stringify({data: datas})); }
                 return {_request: result._request, data: datas,}
             });
     }
@@ -81,7 +81,7 @@ export class ConsulDatasource {
     }
 
     testDatasource() {
-        console.log('testDatasource');
+        if (this.debug) { console.log('testDatasource'); }
         return this.backendSrv.datasourceRequest({
             url: '/api/tsdb/query',
             method: 'POST',
@@ -107,7 +107,7 @@ export class ConsulDatasource {
     }
 
     metricFindQuery(query) {
-        console.log('metricFindQuery: ' + JSON.stringify(query));
+        if (this.debug) { console.log('metricFindQuery: ' + JSON.stringify(query)); }
         return this.doFindQuery({
             data: {
                 targets:
@@ -128,7 +128,7 @@ export class ConsulDatasource {
     }
 
     doFindQuery(options) {
-        console.log('doFindQuery: ' + JSON.stringify(options));
+        if (this.debug) { console.log('doFindQuery: ' + JSON.stringify(options));}
         return this.backendSrv.datasourceRequest({
             url: '/api/tsdb/query',
             method: 'POST',
@@ -136,13 +136,13 @@ export class ConsulDatasource {
                 queries: options.data.targets,
             },
         }).then(result => {
-            console.log('doFindQuery result: ' + JSON.stringify(result));
+            if (this.debug) { console.log('doFindQuery result: ' + JSON.stringify(result));}
             return result;
         });
     }
 
     doRequest(options) {
-        console.log('doRequest: ' + JSON.stringify(options));
+        if (this.debug) { console.log('doRequest: ' + JSON.stringify(options));}
 
         const data = {
             from: '',
@@ -159,13 +159,13 @@ export class ConsulDatasource {
             method: 'POST',
             data,
         }).then(result => {
-            console.log('doRequest result: ' + JSON.stringify(result));
+            if (this.debug) { console.log('doRequest result: ' + JSON.stringify(result));}
             return result;
         });
     }
 
     buildQueryParameters(options) {
-        console.log('buildQueryParameters: ' + JSON.stringify(options));
+        if (this.debug) { console.log('buildQueryParameters: ' + JSON.stringify(options));}
 
         options.targets = _.filter(options.targets, target => {
             return target.target !== '' && !target.hide;

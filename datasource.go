@@ -58,26 +58,12 @@ func handleQueries(consul *api.Client, consulToken string, queries []query) *dat
 func handleTest(consul *api.Client, consulToken, refID string) *datasource.DatasourceResponse {
 	e, _, err := consul.ACL().Info(consulToken, &api.QueryOptions{})
 	if err != nil {
-		return &datasource.DatasourceResponse{
-			Results: []*datasource.QueryResult{
-				{
-					RefId: refID,
-					Error: fmt.Sprintf("error retrieving acl info for token: %v", err),
-				},
-			},
-		}
+		return generateErrorResponse(fmt.Errorf("error retrieving acl info for token: %v", err), refID)
 	}
 	if e != nil && e.ID == consulToken {
 		return &datasource.DatasourceResponse{}
 	}
-	return &datasource.DatasourceResponse{
-		Results: []*datasource.QueryResult{
-			{
-				RefId: refID,
-				Error: "consulToken is not valid",
-			},
-		},
-	}
+	return generateErrorResponse(fmt.Errorf("consulToken is not valid"), refID)
 }
 
 func handleTimeseries(consul *api.Client, qs []query) *datasource.DatasourceResponse {
