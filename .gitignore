@@ -10,3 +10,4 @@ node_modules
 /dist/test
 /dist/spec
 /.nyc_output
+/coverage

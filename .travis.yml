@@ -20,7 +20,7 @@ before_install:
 - export PATH=$HOME/.yarn/bin:$PATH
 
 install:
-- npm install -g codecov nyc
+- npm install -g codecov
 
 before_script:
 - yarn install
@@ -31,15 +31,12 @@ before_script:
 - export PATH="~/bin:$PATH"
 
 script:
-- npm run test
+- npm run testcoverage
 - npm run build
-- npm run buildgo
-- go test -race -coverprofile=coverage.txt -covermode=atomic
-- nyc npm test && nyc report --reporter=html && nyc report --reporter=json > coverage.json
-- nyc npm test && nyc report --reporter=html && nyc report --reporter=text-lcov > coverage.lcov
+- npm run go-testcoverage
+- npm run go-build
 
 after_success:
-- bash <(curl -s https://codecov.io/bash)
 - codecov
 
 before_deploy:

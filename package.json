@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.config.prod.js",
-    "buildgo": "go build -gcflags=\"all=-N -l\" -o ./dist/grafana-consul-plugin_linux_amd64 .",
     "dev": "webpack --mode development",
     "watch": "webpack --mode development --watch",
+    "lint": "tslint --fix --config tslint.json --project tsconfig.json",
     "test": "jest --config jest.config.js",
-    "lint": "tslint --fix --config tslint.json --project tsconfig.json"
+    "testcoverage": "jest --config jest.config.js --coverage",
+    "go-build": "go build -gcflags=\"all=-N -l\" -o ./dist/grafana-consul-plugin_linux_amd64 .",
+    "go-testcoverage": "go test -race -coverprofile=coverage/go-coverage.txt -covermode=atomic"
   },
   "repository": {
     "type": "git",
