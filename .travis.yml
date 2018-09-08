@@ -20,7 +20,7 @@ before_install:
 - export PATH=$HOME/.yarn/bin:$PATH
 
 install:
-- npm install -g codecov
+- npm install -g codecov istanbul
 
 before_script:
 - yarn install
