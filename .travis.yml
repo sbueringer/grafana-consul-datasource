@@ -35,7 +35,8 @@ script:
 - npm run build
 - npm run buildgo
 - go test -race -coverprofile=coverage.txt -covermode=atomic
-- nyc report --reporter=json > coverage.json
+- nyc npm test && nyc report --reporter=html && nyc report --reporter=json > coverage.json
+- nyc npm test && nyc report --reporter=html && nyc report --reporter=text-lcov > coverage.lcov
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)

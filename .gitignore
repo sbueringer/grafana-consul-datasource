@@ -9,3 +9,4 @@ node_modules
 /dist/src
 /dist/test
 /dist/spec
+/.nyc_output
