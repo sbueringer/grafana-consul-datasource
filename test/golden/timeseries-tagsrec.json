@@ -1,6 +1,7 @@
 {
   "results": [
     {
+      "refId": "test",
       "series": [
         {
           "name": "registry/apiregistration.k8s.io/apiservices/v1.autoscaling/",

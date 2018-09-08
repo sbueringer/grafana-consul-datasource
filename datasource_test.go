@@ -26,8 +26,8 @@ func TestQuery(t *testing.T) {
 	defer srv.Stop()
 
 	var tests = []struct {
-		dr          *datasource.DatasourceRequest
-		wantErr     bool
+		dr      *datasource.DatasourceRequest
+		wantErr bool
 	}{
 		{
 			dr: &datasource.DatasourceRequest{
@@ -99,30 +99,36 @@ func TestHandleQueries(t *testing.T) {
 		wantErr     string
 	}{
 		{
-			query:  &query{},
-			golden: "empty-query-error.json",
+			query:   &query{},
+			golden:  "empty-query-error.json",
+			wantErr: "unknown format, nothing to handle",
 		},
 		{
-			query:  nil,
-			golden: "no-query-error.json",
+			query:   nil,
+			golden:  "no-query-error.json",
+			wantErr: "no queries found in request",
 		},
 		{
 			query: &query{
-				Type: "test",
+				Type:  "test",
+				RefID: "test",
 			},
 			golden: "test.json",
 		},
 		{
 			query: &query{
-				Type: "test",
+				Type:  "test",
+				RefID: "test",
 			},
 			consulToken: "wrongToken",
 			golden:      "test-error.json",
+			wantErr:     "consulToken is not valid",
 		},
 		{
 			query: &query{
 				Format: "timeseries",
 				Type:   "get",
+				RefID:  "test",
 				Target: "registry/apiregistration.k8s.io/apiservices/v1beta1.rbac.authorization.k8s.io/spec/groupPriorityMinimum",
 			},
 			golden: "timeseries-get.json",
@@ -131,6 +137,7 @@ func TestHandleQueries(t *testing.T) {
 			query: &query{
 				Format: "timeseries",
 				Type:   "get",
+				RefID:  "test",
 				Target: "registry/apiregistration.k8s.io/apiservices/v1beta1.rbac.authorization.k8s.io/spec/groupPriorityMinimum/",
 			},
 			golden: "timeseries-get.json",
@@ -139,6 +146,7 @@ func TestHandleQueries(t *testing.T) {
 			query: &query{
 				Format: "timeseries",
 				Type:   "keys",
+				RefID:  "test",
 				Target: "registry/apiregistration.k8s.io/apiservices",
 			},
 			golden: "timeseries-keys.json",
@@ -147,6 +155,7 @@ func TestHandleQueries(t *testing.T) {
 			query: &query{
 				Format: "timeseries",
 				Type:   "keys",
+				RefID:  "test",
 				Target: "registry/apiregistration.k8s.io/apiservices/",
 			},
 			golden: "timeseries-keys.json",
@@ -155,6 +164,7 @@ func TestHandleQueries(t *testing.T) {
 			query: &query{
 				Format: "timeseries",
 				Type:   "tags",
+				RefID:  "test",
 				Target: "registry/apiregistration.k8s.io/apiservices/v1.authentication.k8s.io",
 			},
 			golden: "timeseries-tags.json",
@@ -163,6 +173,7 @@ func TestHandleQueries(t *testing.T) {
 			query: &query{
 				Format: "timeseries",
 				Type:   "tags",
+				RefID:  "test",
 				Target: "registry/apiregistration.k8s.io/apiservices/v1.authentication.k8s.io/",
 			},
 			golden: "timeseries-tags.json",
@@ -171,6 +182,7 @@ func TestHandleQueries(t *testing.T) {
 			query: &query{
 				Format: "timeseries",
 				Type:   "tagsrec",
+				RefID:  "test",
 				Target: "registry/apiregistration.k8s.io/apiservices/v1.autoscaling",
 			},
 			golden: "timeseries-tagsrec.json",
@@ -179,6 +191,7 @@ func TestHandleQueries(t *testing.T) {
 			query: &query{
 				Format: "timeseries",
 				Type:   "tagsrec",
+				RefID:  "test",
 				Target: "registry/apiregistration.k8s.io/apiservices/v1.autoscaling/",
 			},
 			golden: "timeseries-tagsrec.json",
@@ -187,15 +200,18 @@ func TestHandleQueries(t *testing.T) {
 			query: &query{
 				Format: "timeseries",
 				Type:   "unknown",
+				RefID:  "test",
 				Target: "registry",
 			},
-			golden: "timeseries-unknown.json",
+			golden:  "timeseries-unknown.json",
+			wantErr: "unknown type \"unknown\" for format timeseries",
 		},
 		{
 			query: &query{
 				Format:  "table",
 				Target:  "registry/apiregistration.k8s.io/apiservices/*/name",
 				Columns: "../name,../kind,../apiVersion,../spec/group,../spec/groupPriorityMinimum,../spec/version,../spec/versionPriority",
+				RefID:   "test",
 			},
 			golden: "table.json",
 		},
@@ -205,7 +221,6 @@ func TestHandleQueries(t *testing.T) {
 	defer srv.Stop()
 
 	writeGolden := false
-	writeGolden = true
 
 	for _, test := range tests {
 
@@ -219,15 +234,19 @@ func TestHandleQueries(t *testing.T) {
 			qs = append(qs, *test.query)
 		}
 
-		qrs, err := handleQueries(consul, consulToken, qs)
-		if err != nil {
+		qrs := handleQueries(consul, consulToken, qs)
+		var errorString = ""
+		if len(qrs.Results) > 0 {
+			errorString = qrs.Results[0].Error
+		}
+		if errorString != "" {
 			if test.wantErr == "" {
-				t.Fatalf("error handling queries: %v", err)
+				t.Fatalf("error handling queries: %s", errorString)
 			} else {
-				if strings.Contains(err.Error(), test.wantErr) {
+				if strings.Contains(errorString, test.wantErr) {
 					continue
 				} else {
-					t.Fatalf("Expected error %s, but did get: %v", test.wantErr, err)
+					t.Fatalf("Expected error %s, but did get: %v", test.wantErr, errorString)
 				}
 			}
 		} else {
@@ -266,8 +285,8 @@ func TestHandleQueries(t *testing.T) {
 		diffs := dmp.DiffMain(string(golden), string(text), false)
 
 		if !(len(diffs) == 1 && diffs[0].Type == diffmatchpatch.DiffEqual) {
-			t.Errorf("query result for query %+v was not as expected, diff is:\n", test.query)
-			fmt.Println(diffPrettyText(diffs))
+			t.Errorf("result for query %+v was not as expected\n", test.query)
+			t.Logf("diff to golden %s:\n%s", test.golden, diffPrettyText(diffs))
 		}
 	}
 }

@@ -27,23 +27,23 @@ func (t *ConsulDatasource) Query(ctx context.Context, req *datasource.Datasource
 
 	consul, consulToken, err := newConsulFromReq(req)
 	if err != nil {
-		return generateErrorResponse(err), nil
+		return generateErrorResponse(err, ""), nil
 	}
 
 	queries, err := parseQueries(req)
 	if err != nil {
-		return generateErrorResponse(fmt.Errorf("error parsing queries: %v", err)), nil
+		return generateErrorResponse(fmt.Errorf("error parsing queries: %v", err), ""), nil
 	}
 
-	return handleQueries(consul, consulToken, queries)
+	return handleQueries(consul, consulToken, queries), nil
 }
 
-func handleQueries(consul *api.Client, consulToken string, queries []query) (*datasource.DatasourceResponse, error) {
+func handleQueries(consul *api.Client, consulToken string, queries []query) *datasource.DatasourceResponse {
 	if len(queries) == 0 {
-		return generateErrorResponse(fmt.Errorf("no queries found in request")), nil
+		return generateErrorResponse(fmt.Errorf("no queries found in request"), "")
 	}
 	if len(queries) == 1 && queries[0].Type == "test" {
-		return handleTest(consul, consulToken)
+		return handleTest(consul, consulToken, queries[0].RefID)
 	}
 
 	switch queries[0].Format {
@@ -52,27 +52,35 @@ func handleQueries(consul *api.Client, consulToken string, queries []query) (*da
 	case "table":
 		return handleTable(consul, queries)
 	}
-	return generateErrorResponse(fmt.Errorf("unknown format, nothing to handle")), nil
+	return generateErrorResponse(fmt.Errorf("unknown format, nothing to handle"), "")
 }
 
-func handleTest(consul *api.Client, consulToken string) (*datasource.DatasourceResponse, error) {
+func handleTest(consul *api.Client, consulToken, refID string) *datasource.DatasourceResponse {
 	e, _, err := consul.ACL().Info(consulToken, &api.QueryOptions{})
 	if err != nil {
-		return nil, fmt.Errorf("error retrieving acl info for token: %v", err)
+		return &datasource.DatasourceResponse{
+			Results: []*datasource.QueryResult{
+				{
+					RefId: refID,
+					Error: fmt.Sprintf("error retrieving acl info for token: %v", err),
+				},
+			},
+		}
 	}
 	if e != nil && e.ID == consulToken {
-		return &datasource.DatasourceResponse{}, nil
+		return &datasource.DatasourceResponse{}
 	}
 	return &datasource.DatasourceResponse{
 		Results: []*datasource.QueryResult{
 			{
-				Error: "consulToken is no valid token",
+				RefId: refID,
+				Error: "consulToken is not valid",
 			},
 		},
-	}, nil
+	}
 }
 
-func handleTimeseries(consul *api.Client, qs []query) (*datasource.DatasourceResponse, error) {
+func handleTimeseries(consul *api.Client, qs []query) *datasource.DatasourceResponse {
 	var qrs []*datasource.QueryResult
 	for _, q := range qs {
 
@@ -91,12 +99,16 @@ func handleTimeseries(consul *api.Client, qs []query) (*datasource.DatasourceRes
 			qr, err = handleTags(consul, target, true)
 		}
 		if err != nil {
-			return nil, err
+			return generateErrorResponse(err, q.RefID)
 		}
+		if qr == nil {
+			return generateErrorResponse(fmt.Errorf("unknown type %q for format timeseries", q.Type), q.RefID)
+		}
+		qr.RefId = q.RefID
 		qrs = append(qrs, qr)
 	}
 
-	return &datasource.DatasourceResponse{Results: qrs}, nil
+	return &datasource.DatasourceResponse{Results: qrs}
 }
 
 func cleanTarget(target string) string {
@@ -167,7 +179,7 @@ func handleTags(consul *api.Client, target string, recursive bool) (*datasource.
 	return qr, nil
 }
 
-func handleTable(consul *api.Client, qs []query) (*datasource.DatasourceResponse, error) {
+func handleTable(consul *api.Client, qs []query) (*datasource.DatasourceResponse) {
 
 	var qrs []*datasource.QueryResult
 	for _, q := range qs {
@@ -175,7 +187,7 @@ func handleTable(consul *api.Client, qs []query) (*datasource.DatasourceResponse
 		targetRegex := strings.Replace(q.Target, "*", ".*", -1)
 		regex, err := regexp.Compile(targetRegex)
 		if err != nil {
-			return nil, fmt.Errorf("error compiling regex: %v", err)
+			return generateErrorResponse(fmt.Errorf("error compiling regex: %v", err), q.RefID)
 		}
 
 		firstStar := strings.Index(q.Target, "*")
@@ -188,7 +200,7 @@ func handleTable(consul *api.Client, qs []query) (*datasource.DatasourceResponse
 
 		keys, _, err := consul.KV().Keys(prefix, "", &api.QueryOptions{})
 		if err != nil {
-			return nil, fmt.Errorf("error gettings keys %s from consul: %v", prefix, err)
+			return generateErrorResponse(fmt.Errorf("error gettings keys %s from consul: %v", prefix, err), q.RefID)
 		}
 
 		var matchingKeys []string
@@ -227,6 +239,7 @@ func handleTable(consul *api.Client, qs []query) (*datasource.DatasourceResponse
 			tableRows = append(tableRows, &datasource.TableRow{Values: tableRowValues})
 		}
 		qrs = append(qrs, &datasource.QueryResult{
+			RefId: q.RefID,
 			Tables: []*datasource.Table{
 				{
 					Columns: tableCols,
@@ -236,7 +249,7 @@ func handleTable(consul *api.Client, qs []query) (*datasource.DatasourceResponse
 		})
 	}
 
-	return &datasource.DatasourceResponse{Results: qrs}, nil
+	return &datasource.DatasourceResponse{Results: qrs}
 }
 
 func calculateColumnKey(key string, col string) string {
@@ -317,10 +330,11 @@ func generateQueryResultWithTags(target string, tagKVs []*api.KVPair) (*datasour
 	}, nil
 }
 
-func generateErrorResponse(err error) *datasource.DatasourceResponse {
+func generateErrorResponse(err error, refID string) *datasource.DatasourceResponse {
 	return &datasource.DatasourceResponse{
 		Results: []*datasource.QueryResult{
 			{
+				RefId: refID,
 				Error: err.Error(),
 			},
 		},

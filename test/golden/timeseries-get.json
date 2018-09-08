@@ -1,6 +1,7 @@
 {
   "results": [
     {
+      "refId": "test",
       "series": [
         {
           "name": "registry/apiregistration.k8s.io/apiservices/v1beta1.rbac.authorization.k8s.io/spec/groupPriorityMinimum",

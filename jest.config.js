@@ -34,5 +34,7 @@ module.exports = {
     "coverageDirectory": "<rootDir>/coverage",
     "coverageReporters": [
         "json",
+        "lcov",
+        "text",
     ]
 };

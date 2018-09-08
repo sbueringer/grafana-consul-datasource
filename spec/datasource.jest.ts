@@ -4,7 +4,7 @@ import {Datasource} from '../src/module';
 import q from 'q';
 import {beforeEach, describe, expect, it} from "./lib/common";
 
-describe('GenericDatasource', () => {
+describe('ConsulDatasource', () => {
     const ctx: any = {
         backendSrv: {},
         templateSrv: new TemplateSrvStub(),
@@ -28,12 +28,21 @@ describe('GenericDatasource', () => {
                 _request: request,
                 data: {
                     results: {
-                        "": {
+                        "test": {
+                            refId: "test",
                             series:
                                 [{
-                                    name: 'X',
+                                    name: 'X1',
                                     points: [1, 2, 3],
-                                },]
+                                },
+                                {
+                                    name: 'X2',
+                                    points: [1, 2, 3],
+                                },
+                                {
+                                    name: 'X3',
+                                    points: [1, 2, 3],
+                                }]
                         }
                     }
                 }
@@ -47,6 +56,7 @@ describe('GenericDatasource', () => {
         ctx.ds.query({
                 targets: [{
                     target: 'hits',
+                    refId: 'test'
                 }],
                 range: {
                     from: new Date(2012, 4, 1),
@@ -56,9 +66,14 @@ describe('GenericDatasource', () => {
         ).then((result) => {
             expect(result._request.data.queries).toHaveLength(1);
 
-            const series = result.data[0];
-            expect(series.target).toBe('X');
-            expect(series.datapoints).toHaveLength(3);
+            expect(result.data).toHaveLength(3);
+
+            expect(result.data[0].target).toBe('X1');
+            expect(result.data[0].datapoints).toHaveLength(3);
+            expect(result.data[1].target).toBe('X2');
+            expect(result.data[1].datapoints).toHaveLength(3);
+            expect(result.data[2].target).toBe('X3');
+            expect(result.data[2].datapoints).toHaveLength(3);
             done();
         });
     });
@@ -69,7 +84,8 @@ describe('GenericDatasource', () => {
                 _request: request,
                 data: {
                     results: {
-                        "": {
+                        "test": {
+                            refId: "test",
                             series:
                                 [{
                                     name: 'X',
@@ -91,6 +107,7 @@ describe('GenericDatasource', () => {
         ctx.ds.query({
                 targets: [{
                     target: 'hits',
+                    refId: 'test',
                     legendFormat: "{{ name }}"
                 },
                     {
@@ -118,7 +135,8 @@ describe('GenericDatasource', () => {
                 _request: request,
                 data: {
                     results: {
-                        "": {
+                        "test": {
+                            refId: "test",
                             tables:
                                 [{
                                     columns: [{name: "columnName"}],
@@ -133,15 +151,21 @@ describe('GenericDatasource', () => {
             return data;
         };
 
-        ctx.ds.query({targets: ['hits']}).then((result) => {
-            expect(result._request.data.queries).toHaveLength(1);
+        ctx.ds.query({
+            targets: [{
+                target: 'hits',
+                refId: 'test'
+            }]
+        })
+            .then((result) => {
+                expect(result._request.data.queries).toHaveLength(1);
 
-            const table = result.data[0];
-            expect(table.type).toBe('table');
-            expect(table.columns).toHaveLength(1);
-            expect(table.rows).toHaveLength(1);
-            done();
-        });
+                const table = result.data[0];
+                expect(table.type).toBe('table');
+                expect(table.columns).toHaveLength(1);
+                expect(table.rows).toHaveLength(1);
+                done();
+            });
     });
 
     it('renderTemplate should render a template', (done) => {
@@ -185,7 +209,8 @@ describe('GenericDatasource', () => {
                 _request: request,
                 data: {
                     results: {
-                        "": {
+                        "keys": {
+                            refId: "keys",
                             series: [{
                                 name: "apiVersion",
                                 points: [{
