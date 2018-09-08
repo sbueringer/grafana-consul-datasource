@@ -26,6 +26,7 @@ before_script:
 - yarn install
 - curl -sLo consul.zip https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip
 - unzip consul.zip
+- rm -rf consul.zip
 - mkdir -p ~/bin
 - mv consul ~/bin
 - export PATH="~/bin:$PATH"
@@ -47,6 +48,10 @@ before_deploy:
 - rm -rf ./consul-datasource-${TRAVIS_TAG}/.git
 - rm -rf ./consul-datasource-${TRAVIS_TAG}/.idea
 - rm -rf ./consul-datasource-${TRAVIS_TAG}/*.iml
+- rm -rf ./consul-datasource-${TRAVIS_TAG}/coverage
+- rm -rf ./consul-datasource-${TRAVIS_TAG}/example
+- rm -rf ./consul-datasource-${TRAVIS_TAG}/spec
+- rm -rf ./consul-datasource-${TRAVIS_TAG}/test
 - zip -r consul-datasource-${TRAVIS_TAG}.zip consul-datasource-${TRAVIS_TAG}
 
 
