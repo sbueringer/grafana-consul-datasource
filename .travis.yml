@@ -19,6 +19,9 @@ before_install:
 - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.9.4
 - export PATH=$HOME/.yarn/bin:$PATH
 
+install:
+- npm install -g codecov
+
 before_script:
 - yarn install
 - curl -sLo consul.zip https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip
@@ -30,6 +33,8 @@ before_script:
 script:
 - npm run test
 - npm run build
+- istanbul cover ./node_modules/mocha/bin/_mocha --reporter lcovonly -- -R spec
+- codecov
 - npm run buildgo
 - go test -race -coverprofile=coverage.txt -covermode=atomic
 
