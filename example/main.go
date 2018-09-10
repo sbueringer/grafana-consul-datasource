@@ -1,18 +1,19 @@
 package main
 
 import (
-	"github.com/hashicorp/consul/testutil"
-	"github.com/hashicorp/consul/api"
-	"io/ioutil"
-	"fmt"
-	"path/filepath"
 	"encoding/json"
-	"sync"
+	"fmt"
+	"io/ioutil"
 	"os"
 	"os/signal"
+	"path/filepath"
+	"sync"
+
+	"github.com/hashicorp/consul/api"
+	"github.com/hashicorp/consul/testutil"
 )
 
-func main(){
+func main() {
 	fmt.Println("Starting Consul")
 	srv := startServer()
 	defer srv.Stop()
@@ -58,8 +59,8 @@ func startServer() *testutil.TestServer {
 	}
 
 	_, _, err = consul.ACL().Create(&api.ACLEntry{
-		ID: "master",
-		Type: "client",
+		ID:    "master",
+		Type:  "client",
 		Rules: "key \"\" { policy = \"write\" }",
 	}, &api.WriteOptions{})
 	if err != nil {
@@ -85,7 +86,7 @@ func startServer() *testutil.TestServer {
 		if err != nil {
 			panic(fmt.Errorf("error reading import json file %s: %v", file, err))
 		}
-		var entries []*Entry
+		var entries []*entry
 		if err := json.Unmarshal([]byte(data), &entries); err != nil {
 			panic(fmt.Errorf("cannot unmarshal data: %s", err))
 		}
@@ -106,7 +107,7 @@ func startServer() *testutil.TestServer {
 	return srv
 }
 
-type Entry struct {
+type entry struct {
 	Key   string `json:"key"`
 	Flags uint64 `json:"flags"`
 	Value string `json:"value"`

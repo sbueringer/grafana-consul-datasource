@@ -15,9 +15,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/sergi/go-diff/diffmatchpatch"
 	"context"
+
 	"github.com/grafana/grafana_plugin_model/go/datasource"
+	"github.com/sergi/go-diff/diffmatchpatch"
 )
 
 func TestQuery(t *testing.T) {

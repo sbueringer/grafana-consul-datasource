@@ -165,7 +165,7 @@ func handleTags(consul *api.Client, target string, recursive bool) (*datasource.
 	return qr, nil
 }
 
-func handleTable(consul *api.Client, qs []query) (*datasource.DatasourceResponse) {
+func handleTable(consul *api.Client, qs []query) *datasource.DatasourceResponse {
 
 	var qrs []*datasource.QueryResult
 	for _, q := range qs {
@@ -373,10 +373,10 @@ func newConsulFromReq(req *datasource.DatasourceRequest) (*api.Client, string, e
 	return consul, consulToken, nil
 }
 
-type consulClientEntry struct{
-	consulAddr string
+type consulClientEntry struct {
+	consulAddr  string
 	consulToken string
-	client *api.Client
+	client      *api.Client
 }
 
 var consulClientCache = map[int64]consulClientEntry{}
