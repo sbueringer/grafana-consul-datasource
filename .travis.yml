@@ -41,24 +41,24 @@ after_success:
 - codecov
 
 before_deploy:
-- cp -r . /tmp/consul-datasource-${TRAVIS_TAG}
+- cp -r . /tmp/grafana-consul-datasource-${TRAVIS_TAG}
 - cd /tmp
-- rm -rf ./consul-datasource-${TRAVIS_TAG}/vendor
-- rm -rf ./consul-datasource-${TRAVIS_TAG}/node_modules
-- rm -rf ./consul-datasource-${TRAVIS_TAG}/.git
-- rm -rf ./consul-datasource-${TRAVIS_TAG}/.idea
-- rm -rf ./consul-datasource-${TRAVIS_TAG}/*.iml
-- rm -rf ./consul-datasource-${TRAVIS_TAG}/coverage
-- rm -rf ./consul-datasource-${TRAVIS_TAG}/example
-- rm -rf ./consul-datasource-${TRAVIS_TAG}/spec
-- rm -rf ./consul-datasource-${TRAVIS_TAG}/test
-- zip -r consul-datasource-${TRAVIS_TAG}.zip consul-datasource-${TRAVIS_TAG}
+- rm -rf ./grafana-consul-datasource-${TRAVIS_TAG}/vendor
+- rm -rf ./grafana-consul-datasource-${TRAVIS_TAG}/node_modules
+- rm -rf ./grafana-consul-datasource-${TRAVIS_TAG}/.git
+- rm -rf ./grafana-consul-datasource-${TRAVIS_TAG}/.idea
+- rm -rf ./grafana-consul-datasource-${TRAVIS_TAG}/*.iml
+- rm -rf ./grafana-consul-datasource-${TRAVIS_TAG}/coverage
+- rm -rf ./grafana-consul-datasource-${TRAVIS_TAG}/example
+- rm -rf ./grafana-consul-datasource-${TRAVIS_TAG}/spec
+- rm -rf ./grafana-consul-datasource-${TRAVIS_TAG}/test
+- zip -r grafana-consul-datasource-${TRAVIS_TAG}.zip grafana-consul-datasource-${TRAVIS_TAG}
 
 
 deploy:
 - provider: releases
   api_key: $GITHUB_RELEASE_TOKEN
-  file: /tmp/consul-datasource-${TRAVIS_TAG}.zip
+  file: /tmp/grafana-consul-datasource-${TRAVIS_TAG}.zip
   overwrite: true
   skip_cleanup: true
   on:
