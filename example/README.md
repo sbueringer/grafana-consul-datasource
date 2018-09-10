@@ -28,4 +28,4 @@ go run main.go
 3. Click the `Upload .json File` button and select the dashboard from `example/Consul_Kubernetes_Example.json`.
 4. Select `Consul` as datasource and click `Import`.
 
-*For further explanations see [README.md](https://github.com/sbueringer/grafana-consul-datasource/README.md]).*
+*For further explanations see [README.md](https://github.com/sbueringer/grafana-consul-datasource/).*
