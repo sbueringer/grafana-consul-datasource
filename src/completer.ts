@@ -23,6 +23,7 @@ export class ConsulCompleter {
     }
 
     getCompletions(editor, session, pos, prefix, callback) {
+        console.log("getCompletions");
         const wrappedCallback = (err, completions) => {
             completions = completions.concat(this.templateVariableCompletions);
             return callback(err, completions);

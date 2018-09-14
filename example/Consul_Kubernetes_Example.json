@@ -5,14 +5,14 @@
       "label": "Consul",
       "description": "",
       "type": "datasource",
-      "pluginId": "consul-datasource",
+      "pluginId": "sbueringer-consul-datasource",
       "pluginName": "Consul"
     }
   ],
   "__requires": [
     {
       "type": "datasource",
-      "id": "consul-datasource",
+      "id": "sbueringer-consul-datasource",
       "name": "Consul",
       "version": "0.1.0"
     },

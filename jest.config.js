@@ -1,40 +1,36 @@
 module.exports = {
     verbose: true,
-    "globals": {
-        "ts-jest": {
-            "tsConfigFile": "tsconfig.jest.json",
-            "useBabelrc": true
-        }
+    globals: {
+        'ts-jest': {
+            tsConfig: 'tsconfig.jest.json',
+            babelConfig: true,
+        },
     },
-    "moduleNameMapper": {
-        // 'app/core/utils/datemath': '<rootDir>/node_modules/grafana-sdk-mocks/app/core/utils/datemath.ts',
-        // 'app/core/utils/kbn': '<rootDir>/src/__mocks__/kbn.ts',
+    moduleNameMapper: {
         'app/plugins/sdk': '<rootDir>/node_modules/grafana-sdk-mocks/app/plugins/sdk.ts',
     },
-    "transformIgnorePatterns": [
-        "node_modules/(?!(grafana-sdk-mocks))"
+    transformIgnorePatterns: [
+        'node_modules/(?!(grafana-sdk-mocks))',
     ],
-    "transform": {
-        // "^.+\\.tsx?$": "ts-jest"
-        "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": "(\\.|/)([jt]est)\\.ts$",
-    "moduleFileExtensions": [
-        "ts",
-        "tsx",
-        "js",
-        "jsx",
-        "json"
+    testRegex: '(\\.|/)([jt]est)\\.ts$',
+    moduleFileExtensions: [
+        'js',
+        'json',
+        'jsx',
+        'ts',
+        'tsx',
     ],
-    "collectCoverageFrom": [
-        "src/*.ts",
-        "!**/node_modules/**",
-        "!**/vendor/**"
+    collectCoverageFrom: [
+        'src/*.ts',
+        '!**/node_modules/**',
+        '!**/vendor/**',
     ],
-    "coverageDirectory": "<rootDir>/coverage",
-    "coverageReporters": [
-        "json",
-        "lcov",
-        "text",
-    ]
-};
+    coverageDirectory: '<rootDir>/coverage',
+    coverageReporters: [
+        'json',
+        'lcov',
+        'text',
+    ],
+    preset: 'ts-jest',
+    testMatch: null,
+}

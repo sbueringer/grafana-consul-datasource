@@ -30,6 +30,7 @@ before_script:
 - mkdir -p ~/bin
 - mv consul ~/bin
 - export PATH="~/bin:$PATH"
+- npm install -g ts-jest
 
 script:
 - npm run testcoverage

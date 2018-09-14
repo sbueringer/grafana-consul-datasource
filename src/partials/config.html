@@ -1,13 +1,35 @@
-
 <h3 class="page-heading">Consul</h3>
 
 <div class="gf-form-group">
     <div class="gf-form max-width-30">
         <span class="gf-form-label width-7">Address</span>
-        <input type="text" class="gf-form-input" ng-model='ctrl.current.jsonData.consulAddr' placeholder="CONSUL_ADDRESS" required>
+        <input type="text" class="gf-form-input" ng-model='ctrl.current.jsonData.consulAddr'
+               placeholder="http://localhost:8500" required>
     </div>
     <div class="gf-form max-width-30">
         <span class="gf-form-label width-7">Token</span>
-        <input type="text" class="gf-form-input" ng-model='ctrl.current.secureJsonData.consulToken' placeholder="CONSUL_TOKEN" required>
+        <input type="text" class="gf-form-input" ng-model='ctrl.current.secureJsonData.consulToken'
+               placeholder="CONSUL_TOKEN" required>
+    </div>
+</div>
+
+<div class="gf-form-group">
+    <div class="grafana-info-box">
+        <h5>Consul Address</h5>
+        <p>
+            Specify a complete HTTP URL. This is usually one of the addresses specified in the Consul configuration
+            under <code>addresses</code>.
+            The default value when running Consul locally is <code>http://localhost:8500</code>. More details can be
+            found in the <a href="https://www.consul.io/docs/agent/options.html">Consul documentation</a>.
+
+            Consul is accessed by the Consul plugin backend, this means the URL needs to be accessible from the
+            Grafana backend/server.
+        </p>
+        <h5>Consul Token</h5>
+        <p>
+            Consul Token has to be a valid Consul Token which is able to read the values you want to access.
+            More details can be found in the <a href="https://www.consul.io/docs/guides/acl.html">Consul
+            documentation</a>.
+        </p>
     </div>
 </div>

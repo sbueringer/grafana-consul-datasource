@@ -216,11 +216,15 @@ func handleTable(consul *api.Client, qs []query) *datasource.DatasourceResponse 
 				kv, _, err := consul.KV().Get(colKey, &api.QueryOptions{})
 				var kvValue string
 				if err != nil || kv == nil {
-					kvValue = "Not Found"
+					tableRowValues = append(tableRowValues, &datasource.RowValue{Kind: datasource.RowValue_TYPE_STRING, StringValue: "Not Found"})
 				} else {
 					kvValue = string(kv.Value)
+					if i, err := strconv.ParseInt(kvValue, 10, 64); err != nil {
+						tableRowValues = append(tableRowValues, &datasource.RowValue{Kind: datasource.RowValue_TYPE_STRING, StringValue: kvValue})
+					} else {
+						tableRowValues = append(tableRowValues, &datasource.RowValue{Kind: datasource.RowValue_TYPE_INT64, Int64Value: i})
+					}
 				}
-				tableRowValues = append(tableRowValues, &datasource.RowValue{Kind: datasource.RowValue_TYPE_STRING, StringValue: kvValue})
 			}
 			tableRows = append(tableRows, &datasource.TableRow{Values: tableRowValues})
 		}
@@ -259,7 +263,7 @@ func generateQueryResultFromKVPairs(kvs []*api.KVPair) (*datasource.QueryResult,
 			Name: kv.Key,
 			Points: []*datasource.Point{
 				{
-					Timestamp: time.Now().UnixNano(),
+					Timestamp: time.Now().UnixNano() / int64(time.Millisecond),
 					Value:     value,
 				},
 			},
@@ -278,7 +282,7 @@ func generateQueryResultFromKeys(keys []string) *datasource.QueryResult {
 			Name: key,
 			Points: []*datasource.Point{
 				{
-					Timestamp: time.Now().UnixNano(),
+					Timestamp: time.Now().UnixNano() / int64(time.Millisecond),
 					Value:     1,
 				},
 			},
@@ -305,7 +309,7 @@ func generateQueryResultWithTags(target string, tagKVs []*api.KVPair) (*datasour
 		Tags: tags,
 		Points: []*datasource.Point{
 			{
-				Timestamp: time.Now().UnixNano(),
+				Timestamp: time.Now().UnixNano() / int64(time.Millisecond),
 				Value:     1,
 			},
 		},
