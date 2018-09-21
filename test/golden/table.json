@@ -46,16 +46,16 @@
                   "kind": 4
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "18000"
+                  "kind": 2,
+                  "int64Value": 18000
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "1"
+                  "kind": 2,
+                  "int64Value": 1
                 }
               ]
             },
@@ -78,16 +78,16 @@
                   "stringValue": "apps"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "17800"
+                  "kind": 2,
+                  "int64Value": 17800
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "15"
+                  "kind": 2,
+                  "int64Value": 15
                 }
               ]
             },
@@ -110,16 +110,16 @@
                   "stringValue": "authentication.k8s.io"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "17700"
+                  "kind": 2,
+                  "int64Value": 17700
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "15"
+                  "kind": 2,
+                  "int64Value": 15
                 }
               ]
             },
@@ -142,16 +142,16 @@
                   "stringValue": "authorization.k8s.io"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "17600"
+                  "kind": 2,
+                  "int64Value": 17600
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "15"
+                  "kind": 2,
+                  "int64Value": 15
                 }
               ]
             },
@@ -174,16 +174,16 @@
                   "stringValue": "autoscaling"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "17500"
+                  "kind": 2,
+                  "int64Value": 17500
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "15"
+                  "kind": 2,
+                  "int64Value": 15
                 }
               ]
             },
@@ -206,16 +206,16 @@
                   "stringValue": "batch"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "17400"
+                  "kind": 2,
+                  "int64Value": 17400
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "15"
+                  "kind": 2,
+                  "int64Value": 15
                 }
               ]
             },
@@ -238,16 +238,16 @@
                   "stringValue": "crd.projectcalico.org"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "1000"
+                  "kind": 2,
+                  "int64Value": 1000
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "100"
+                  "kind": 2,
+                  "int64Value": 100
                 }
               ]
             },
@@ -270,16 +270,16 @@
                   "stringValue": "networking.k8s.io"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "17200"
+                  "kind": 2,
+                  "int64Value": 17200
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "15"
+                  "kind": 2,
+                  "int64Value": 15
                 }
               ]
             },
@@ -302,16 +302,16 @@
                   "stringValue": "rbac.authorization.k8s.io"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "17000"
+                  "kind": 2,
+                  "int64Value": 17000
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "15"
+                  "kind": 2,
+                  "int64Value": 15
                 }
               ]
             },
@@ -334,16 +334,16 @@
                   "stringValue": "storage.k8s.io"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "16800"
+                  "kind": 2,
+                  "int64Value": 16800
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "15"
+                  "kind": 2,
+                  "int64Value": 15
                 }
               ]
             },
@@ -366,16 +366,16 @@
                   "stringValue": "scheduling.k8s.io"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "16600"
+                  "kind": 2,
+                  "int64Value": 16600
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1alpha1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "9"
+                  "kind": 2,
+                  "int64Value": 9
                 }
               ]
             },
@@ -398,16 +398,16 @@
                   "stringValue": "admissionregistration.k8s.io"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "16700"
+                  "kind": 2,
+                  "int64Value": 16700
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1beta1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "12"
+                  "kind": 2,
+                  "int64Value": 12
                 }
               ]
             },
@@ -430,16 +430,16 @@
                   "stringValue": "apiextensions.k8s.io"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "16700"
+                  "kind": 2,
+                  "int64Value": 16700
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1beta1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "9"
+                  "kind": 2,
+                  "int64Value": 9
                 }
               ]
             },
@@ -462,16 +462,16 @@
                   "stringValue": "apps"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "17800"
+                  "kind": 2,
+                  "int64Value": 17800
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1beta1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "1"
+                  "kind": 2,
+                  "int64Value": 1
                 }
               ]
             },
@@ -494,16 +494,16 @@
                   "stringValue": "authentication.k8s.io"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "17700"
+                  "kind": 2,
+                  "int64Value": 17700
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1beta1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "9"
+                  "kind": 2,
+                  "int64Value": 9
                 }
               ]
             },
@@ -526,16 +526,16 @@
                   "stringValue": "authorization.k8s.io"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "17600"
+                  "kind": 2,
+                  "int64Value": 17600
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1beta1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "9"
+                  "kind": 2,
+                  "int64Value": 9
                 }
               ]
             },
@@ -558,16 +558,16 @@
                   "stringValue": "batch"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "17400"
+                  "kind": 2,
+                  "int64Value": 17400
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1beta1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "9"
+                  "kind": 2,
+                  "int64Value": 9
                 }
               ]
             },
@@ -590,16 +590,16 @@
                   "stringValue": "certificates.k8s.io"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "17300"
+                  "kind": 2,
+                  "int64Value": 17300
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1beta1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "9"
+                  "kind": 2,
+                  "int64Value": 9
                 }
               ]
             },
@@ -622,16 +622,16 @@
                   "stringValue": "events.k8s.io"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "17750"
+                  "kind": 2,
+                  "int64Value": 17750
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1beta1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "5"
+                  "kind": 2,
+                  "int64Value": 5
                 }
               ]
             },
@@ -654,16 +654,16 @@
                   "stringValue": "extensions"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "17900"
+                  "kind": 2,
+                  "int64Value": 17900
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1beta1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "1"
+                  "kind": 2,
+                  "int64Value": 1
                 }
               ]
             },
@@ -686,16 +686,16 @@
                   "stringValue": "policy"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "17100"
+                  "kind": 2,
+                  "int64Value": 17100
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1beta1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "9"
+                  "kind": 2,
+                  "int64Value": 9
                 }
               ]
             },
@@ -718,16 +718,16 @@
                   "stringValue": "rbac.authorization.k8s.io"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "17000"
+                  "kind": 2,
+                  "int64Value": 17000
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1beta1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "12"
+                  "kind": 2,
+                  "int64Value": 12
                 }
               ]
             },
@@ -750,16 +750,16 @@
                   "stringValue": "storage.k8s.io"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "16800"
+                  "kind": 2,
+                  "int64Value": 16800
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1beta1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "9"
+                  "kind": 2,
+                  "int64Value": 9
                 }
               ]
             },
@@ -782,16 +782,16 @@
                   "stringValue": "apps"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "17800"
+                  "kind": 2,
+                  "int64Value": 17800
                 },
                 {
                   "kind": 4,
                   "stringValue": "v1beta2"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "9"
+                  "kind": 2,
+                  "int64Value": 9
                 }
               ]
             },
@@ -814,16 +814,16 @@
                   "stringValue": "autoscaling"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "17500"
+                  "kind": 2,
+                  "int64Value": 17500
                 },
                 {
                   "kind": 4,
                   "stringValue": "v2beta1"
                 },
                 {
-                  "kind": 4,
-                  "stringValue": "9"
+                  "kind": 2,
+                  "int64Value": 9
                 }
               ]
             }

@@ -216,11 +216,15 @@ func handleTable(consul *api.Client, qs []query) *datasource.DatasourceResponse 
 				kv, _, err := consul.KV().Get(colKey, &api.QueryOptions{})
 				var kvValue string
 				if err != nil || kv == nil {
-					kvValue = "Not Found"
+					tableRowValues = append(tableRowValues, &datasource.RowValue{Kind: datasource.RowValue_TYPE_STRING, StringValue: "Not Found"})
 				} else {
 					kvValue = string(kv.Value)
+					if i, err := strconv.ParseInt(kvValue, 10, 64); err != nil {
+						tableRowValues = append(tableRowValues, &datasource.RowValue{Kind: datasource.RowValue_TYPE_STRING, StringValue: kvValue})
+					} else {
+						tableRowValues = append(tableRowValues, &datasource.RowValue{Kind: datasource.RowValue_TYPE_INT64, Int64Value: i})
+					}
 				}
-				tableRowValues = append(tableRowValues, &datasource.RowValue{Kind: datasource.RowValue_TYPE_STRING, StringValue: kvValue})
 			}
 			tableRows = append(tableRows, &datasource.TableRow{Values: tableRowValues})
 		}
