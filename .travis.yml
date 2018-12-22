@@ -32,6 +32,8 @@ before_script:
 - export PATH="~/bin:$PATH"
 
 script:
+# first run is buggy.. https://github.com/kulshekhar/ts-jest/issues/805
+- npm run testcoverage || true
 - npm run testcoverage
 - npm run build
 - npm run go-testcoverage
