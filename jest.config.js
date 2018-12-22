@@ -12,8 +12,8 @@ module.exports = {
     transformIgnorePatterns: [
         'node_modules/(?!(grafana-sdk-mocks))',
     ],
-    transform: {
-        "^spec/.+\\.ts$": "ts-jest"
+    "transform": {
+        "^.+\\.tsx?$": "ts-jest"
     },
     testRegex: '(\\.|/)([jt]est)\\.ts$',
     moduleFileExtensions: [
@@ -34,6 +34,5 @@ module.exports = {
         'lcov',
         'text',
     ],
-    preset: 'ts-jest',
     testMatch: null,
 }
