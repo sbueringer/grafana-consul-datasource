@@ -24,6 +24,7 @@ install:
 
 before_script:
 - yarn install
+- npm install
 - curl -sLo consul.zip https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip
 - unzip consul.zip
 - rm -rf consul.zip
