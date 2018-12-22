@@ -12,6 +12,9 @@ module.exports = {
     transformIgnorePatterns: [
         'node_modules/(?!(grafana-sdk-mocks))',
     ],
+    transform: {
+        "^.+\\.tsx?$": "ts-jest"
+    },
     testRegex: '(\\.|/)([jt]est)\\.ts$',
     moduleFileExtensions: [
         'js',
