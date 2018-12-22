@@ -13,7 +13,7 @@ module.exports = {
         'node_modules/(?!(grafana-sdk-mocks))',
     ],
     transform: {
-        "^.+\\.tsx?$": "ts-jest"
+        "^spec/.+\\.ts$": "ts-jest"
     },
     testRegex: '(\\.|/)([jt]est)\\.ts$',
     moduleFileExtensions: [
