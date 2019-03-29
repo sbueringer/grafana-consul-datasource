@@ -356,7 +356,8 @@ type query struct {
 func newConsulFromReq(req *datasource.DatasourceRequest) (*api.Client, string, error) {
 	consulToken := req.Datasource.DecryptedSecureJsonData["consulToken"]
 	if consulToken == "" {
-		return nil, "", fmt.Errorf("unable to get consulToken")
+		// see https://www.consul.io/docs/acl/acl-system.html#acl-tokens
+		consulToken = "anonymous"
 	}
 
 	var jsonData map[string]interface{}

@@ -3,7 +3,7 @@
 
 [![Travis](https://img.shields.io/travis/sbueringer/grafana-consul-datasource.svg)](https://travis-ci.org/sbueringer/grafana-consul-datasource)[![Codecov](https://img.shields.io/codecov/c/github/sbueringer/grafana-consul-datasource.svg)](https://codecov.io/gh/sbueringer/grafana-consul-datasource)[![CodeFactor](https://www.codefactor.io/repository/github/sbueringer/grafana-consul-datasource/badge)](https://www.codefactor.io/repository/github/sbueringer/grafana-consul-datasource)[![GoReportCard](https://goreportcard.com/badge/github.com/sbueringer/grafana-consul-datasource?style=plastic)](https://goreportcard.com/report/github.com/sbueringer/grafana-consul-datasource)[![GitHub release](https://img.shields.io/github/release/sbueringer/grafana-consul-datasource.svg)](https://github.com/sbueringer/grafana-consul-datasource/releases)
 
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/sbueringer/consul-datasource/issues) 
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/sbueringer/grafana-consul-datasource/issues) 
 
 This datasource lets you integrate key value data from Consul in Grafana dashboards.
 

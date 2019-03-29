@@ -5,7 +5,7 @@
 
 ````
 git clone https://github.com/sbueringer/grafana-consul-datasource.git
-cd consul-datasource/example
+cd grafana-consul-datasource/example
 go run main.go
 ````
 

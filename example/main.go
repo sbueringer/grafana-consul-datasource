@@ -45,7 +45,7 @@ func startServer() *testutil.TestServer {
 		c.ACLDefaultPolicy = "allow"
 		c.ACLDatacenter = "default"
 		c.ACLMasterToken = "master"
-		c.LogLevel = "warn"
+		c.LogLevel = "debug"
 	})
 	if err != nil {
 		panic(err)
