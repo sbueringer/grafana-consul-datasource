@@ -18,7 +18,7 @@ go run main.go
 5. Fill in the:
     1. name: `Consul`
     2. Consul address: `http://localhost:8500`
-    3. Consul token: `master`
+    3. Consul token: ``
 6. Click the `Save & Test` button
  
 # Import the example dashboard

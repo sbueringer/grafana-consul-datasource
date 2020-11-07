@@ -25,7 +25,7 @@ type ConsulDatasource struct {
 func (t *ConsulDatasource) Query(ctx context.Context, req *datasource.DatasourceRequest) (*datasource.DatasourceResponse, error) {
 	log.Printf("called consul plugin with: \n%v", req)
 
-	consul, consulToken, err := newConsulFromReq(req)
+	consul, err := newConsulFromReq(req)
 	if err != nil {
 		return generateErrorResponse(err, ""), nil
 	}
@@ -35,15 +35,15 @@ func (t *ConsulDatasource) Query(ctx context.Context, req *datasource.Datasource
 		return generateErrorResponse(fmt.Errorf("error parsing queries: %v", err), ""), nil
 	}
 
-	return handleQueries(consul, consulToken, queries), nil
+	return handleQueries(consul, queries), nil
 }
 
-func handleQueries(consul *api.Client, consulToken string, queries []query) *datasource.DatasourceResponse {
+func handleQueries(consul *api.Client, queries []query) *datasource.DatasourceResponse {
 	if len(queries) == 0 {
 		return generateErrorResponse(fmt.Errorf("no queries found in request"), "")
 	}
 	if len(queries) == 1 && queries[0].Type == "test" {
-		return handleTest(consul, consulToken, queries[0].RefID)
+		return handleTest(consul, queries[0].RefID)
 	}
 
 	switch queries[0].Format {
@@ -55,15 +55,12 @@ func handleQueries(consul *api.Client, consulToken string, queries []query) *dat
 	return generateErrorResponse(fmt.Errorf("unknown format, nothing to handle"), "")
 }
 
-func handleTest(consul *api.Client, consulToken, refID string) *datasource.DatasourceResponse {
-	e, _, err := consul.ACL().Info(consulToken, &api.QueryOptions{})
+func handleTest(consul *api.Client, refID string) *datasource.DatasourceResponse {
+	_, err := consul.Status().Leader()
 	if err != nil {
 		return generateErrorResponse(fmt.Errorf("error retrieving acl info for token: %v", err), refID)
 	}
-	if e != nil && e.ID == consulToken {
-		return &datasource.DatasourceResponse{}
-	}
-	return generateErrorResponse(fmt.Errorf("consulToken is not valid"), refID)
+	return &datasource.DatasourceResponse{}
 }
 
 func handleTimeseries(consul *api.Client, qs []query) *datasource.DatasourceResponse {
@@ -353,29 +350,25 @@ type query struct {
 	Columns      string `json:"columns"`
 }
 
-func newConsulFromReq(req *datasource.DatasourceRequest) (*api.Client, string, error) {
+func newConsulFromReq(req *datasource.DatasourceRequest) (*api.Client, error) {
 	consulToken := req.Datasource.DecryptedSecureJsonData["consulToken"]
-	if consulToken == "" {
-		// see https://www.consul.io/docs/acl/acl-system.html#acl-tokens
-		consulToken = "anonymous"
-	}
 
 	var jsonData map[string]interface{}
 	err := json.Unmarshal([]byte(req.Datasource.JsonData), &jsonData)
 	if err != nil {
-		return nil, "", fmt.Errorf("unable to get consulAddr: %v", err)
+		return nil, fmt.Errorf("unable to get consulAddr: %v", err)
 	}
 
 	consulAddr := jsonData["consulAddr"].(string)
 	if consulAddr == "" {
-		return nil, "", fmt.Errorf("unable to get consulAddr")
+		return nil, fmt.Errorf("unable to get consulAddr")
 	}
 
 	consul, err := newConsul(req.Datasource.Id, consulAddr, consulToken)
 	if err != nil {
-		return nil, "", fmt.Errorf("creating consul client failed: %v", err)
+		return nil, fmt.Errorf("creating consul client failed: %v", err)
 	}
-	return consul, consulToken, nil
+	return consul, nil
 }
 
 type consulClientEntry struct {

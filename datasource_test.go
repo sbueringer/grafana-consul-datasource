@@ -46,30 +46,6 @@ func TestQuery(t *testing.T) {
 			},
 			wantErr: false,
 		},
-		{
-			dr: &datasource.DatasourceRequest{
-				Datasource: &datasource.DatasourceInfo{
-					DecryptedSecureJsonData: map[string]string{
-						"consulToken": srv.Config.ACLMasterToken,
-					},
-					JsonData: fmt.Sprintf("{\"consulAddr\":\"%s\"}", srv.HTTPAddr),
-				},
-				Queries: []*datasource.Query{
-					{
-						ModelJson: "{abc}",
-					},
-				},
-			},
-			wantErr: true,
-		},
-		{
-			dr: &datasource.DatasourceRequest{
-				Datasource: &datasource.DatasourceInfo{
-					JsonData: fmt.Sprintf("{\"consulAddr\":\"%s\"}", srv.HTTPAddr),
-				},
-			},
-			wantErr: true,
-		},
 	}
 
 	ds := &ConsulDatasource{}
@@ -115,15 +91,6 @@ func TestHandleQueries(t *testing.T) {
 				RefID: "test",
 			},
 			golden: "test.json",
-		},
-		{
-			query: &query{
-				Type:  "test",
-				RefID: "test",
-			},
-			consulToken: "wrongToken",
-			golden:      "test-error.json",
-			wantErr:     "consulToken is not valid",
 		},
 		{
 			query: &query{
@@ -235,7 +202,7 @@ func TestHandleQueries(t *testing.T) {
 			qs = append(qs, *test.query)
 		}
 
-		qrs := handleQueries(consul, consulToken, qs)
+		qrs := handleQueries(consul, qs)
 		var errorString = ""
 		if len(qrs.Results) > 0 {
 			errorString = qrs.Results[0].Error

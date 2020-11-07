@@ -8,9 +8,10 @@ import (
 	"os/signal"
 	"path/filepath"
 	"sync"
+	"testing"
 
 	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/testutil"
+	"github.com/hashicorp/consul/sdk/testutil"
 )
 
 func main() {
@@ -37,14 +38,11 @@ func main() {
 }
 
 func startServer() *testutil.TestServer {
-	srv, err := testutil.NewTestServerConfig(func(c *testutil.TestServerConfig) {
+	srv, err := testutil.NewTestServerConfigT(&testing.T{}, func(c *testutil.TestServerConfig) {
 		c.Ports = &testutil.TestPortConfig{
 			HTTP: 8500,
 		}
 		c.Datacenter = "default"
-		c.ACLDefaultPolicy = "allow"
-		c.ACLDatacenter = "default"
-		c.ACLMasterToken = "master"
 		c.LogLevel = "debug"
 	})
 	if err != nil {
@@ -56,15 +54,6 @@ func startServer() *testutil.TestServer {
 	consul, err := newConsul(srv.HTTPAddr, srv.Config.ACLMasterToken)
 	if err != nil {
 		panic(fmt.Errorf("could not create consul client: %v", err))
-	}
-
-	_, _, err = consul.ACL().Create(&api.ACLEntry{
-		ID:    "master",
-		Type:  "client",
-		Rules: "key \"\" { policy = \"write\" }",
-	}, &api.WriteOptions{})
-	if err != nil {
-		panic(fmt.Errorf("could not create master acl: %v", err))
 	}
 
 	files, err := filepath.Glob("data/data.json")
