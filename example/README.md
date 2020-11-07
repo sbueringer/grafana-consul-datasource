@@ -12,6 +12,11 @@ go run main.go
 ## Configure the Consul datasource
 
 1. Open Grafana in your browser and open the side menu by clicking the Grafana icon in the top header.
+    ```bash
+   docker run --rm -it -p 3000:3000 --name=grafana --net=host  \
+   -e "GF_INSTALL_PLUGINS=https://github.com/sbueringer/grafana-consul-datasource/releases/download/v0.1.8/grafana-consul-datasource-v0.1.8.zip;sbueringer-consul-datasource" \
+   -e "GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=sbueringer-consul-datasource" grafana/grafana
+    ```
 2. In the side menu in the `Configuration` section you should find a link named `Data Sources`.
 3. Click the `+ Add data source` button in the top header.
 4. Select `Consul` from the `Type` dropdown.
