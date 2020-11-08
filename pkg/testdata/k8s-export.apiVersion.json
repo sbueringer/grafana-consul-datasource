@@ -1,0 +1,127 @@
+[
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1./apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.apps/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.authentication.k8s.io/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.authorization.k8s.io/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.autoscaling/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.batch/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.crd.projectcalico.org/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.networking.k8s.io/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.rbac.authorization.k8s.io/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.storage.k8s.io/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1alpha1.scheduling.k8s.io/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.admissionregistration.k8s.io/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.apiextensions.k8s.io/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.apps/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.authentication.k8s.io/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.authorization.k8s.io/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.batch/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.certificates.k8s.io/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.events.k8s.io/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.extensions/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.policy/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.rbac.authorization.k8s.io/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.storage.k8s.io/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta2.apps/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v2beta1.autoscaling/apiVersion",
+    "flags": 0,
+    "value": "apiregistration.k8s.io/v1beta1"
+  }
+]

@@ -1,0 +1,127 @@
+[
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1./spec/versionPriority",
+    "flags": 0,
+    "value": "1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.apps/spec/versionPriority",
+    "flags": 0,
+    "value": "15"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.authentication.k8s.io/spec/versionPriority",
+    "flags": 0,
+    "value": "15"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.authorization.k8s.io/spec/versionPriority",
+    "flags": 0,
+    "value": "15"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.autoscaling/spec/versionPriority",
+    "flags": 0,
+    "value": "15"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.batch/spec/versionPriority",
+    "flags": 0,
+    "value": "15"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.crd.projectcalico.org/spec/versionPriority",
+    "flags": 0,
+    "value": "100"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.networking.k8s.io/spec/versionPriority",
+    "flags": 0,
+    "value": "15"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.rbac.authorization.k8s.io/spec/versionPriority",
+    "flags": 0,
+    "value": "15"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.storage.k8s.io/spec/versionPriority",
+    "flags": 0,
+    "value": "15"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1alpha1.scheduling.k8s.io/spec/versionPriority",
+    "flags": 0,
+    "value": "9"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.admissionregistration.k8s.io/spec/versionPriority",
+    "flags": 0,
+    "value": "12"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.apiextensions.k8s.io/spec/versionPriority",
+    "flags": 0,
+    "value": "9"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.apps/spec/versionPriority",
+    "flags": 0,
+    "value": "1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.authentication.k8s.io/spec/versionPriority",
+    "flags": 0,
+    "value": "9"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.authorization.k8s.io/spec/versionPriority",
+    "flags": 0,
+    "value": "9"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.batch/spec/versionPriority",
+    "flags": 0,
+    "value": "9"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.certificates.k8s.io/spec/versionPriority",
+    "flags": 0,
+    "value": "9"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.events.k8s.io/spec/versionPriority",
+    "flags": 0,
+    "value": "5"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.extensions/spec/versionPriority",
+    "flags": 0,
+    "value": "1"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.policy/spec/versionPriority",
+    "flags": 0,
+    "value": "9"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.rbac.authorization.k8s.io/spec/versionPriority",
+    "flags": 0,
+    "value": "12"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.storage.k8s.io/spec/versionPriority",
+    "flags": 0,
+    "value": "9"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta2.apps/spec/versionPriority",
+    "flags": 0,
+    "value": "9"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v2beta1.autoscaling/spec/versionPriority",
+    "flags": 0,
+    "value": "9"
+  }
+]

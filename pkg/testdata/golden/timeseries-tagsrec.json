@@ -1,0 +1,34 @@
+{
+  "Responses": {
+    "xyz": {
+      "Frames": [
+        {
+          "Name": "registry/apiregistration.k8s.io/apiservices/v1.autoscaling/",
+          "Fields": [
+            {
+              "Name": "time",
+              "Labels": null,
+              "Config": null
+            },
+            {
+              "Name": "values",
+              "Labels": {
+                "apiVersion": "apiregistration.k8s.io/v1beta1",
+                "kind": "APIService",
+                "name": "v1.autoscaling",
+                "spec.group": "autoscaling",
+                "spec.groupPriorityMinimum": "17500",
+                "spec.version": "v1",
+                "spec.versionPriority": "15"
+              },
+              "Config": null
+            }
+          ],
+          "RefID": "",
+          "Meta": null
+        }
+      ],
+      "Error": null
+    }
+  }
+}

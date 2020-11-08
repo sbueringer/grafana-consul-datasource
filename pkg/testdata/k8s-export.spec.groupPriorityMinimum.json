@@ -1,0 +1,127 @@
+[
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1./spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "18000"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.apps/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "17800"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.authentication.k8s.io/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "17700"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.authorization.k8s.io/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "17600"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.autoscaling/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "17500"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.batch/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "17400"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.crd.projectcalico.org/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "1000"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.networking.k8s.io/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "17200"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.rbac.authorization.k8s.io/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "17000"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1.storage.k8s.io/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "16800"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1alpha1.scheduling.k8s.io/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "16600"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.admissionregistration.k8s.io/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "16700"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.apiextensions.k8s.io/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "16700"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.apps/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "17800"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.authentication.k8s.io/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "17700"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.authorization.k8s.io/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "17600"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.batch/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "17400"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.certificates.k8s.io/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "17300"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.events.k8s.io/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "17750"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.extensions/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "17900"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.policy/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "17100"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.rbac.authorization.k8s.io/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "17000"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta1.storage.k8s.io/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "16800"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v1beta2.apps/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "17800"
+  },
+  {
+    "key": "registry/apiregistration.k8s.io/apiservices/v2beta1.autoscaling/spec/groupPriorityMinimum",
+    "flags": 0,
+    "value": "17500"
+  }
+]
