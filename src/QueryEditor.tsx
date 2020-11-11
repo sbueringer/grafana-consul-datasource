@@ -150,10 +150,7 @@ export class QueryEditor extends PureComponent<Props, State> {
 
           {formatOption.value === 'table' ? (
             <div className="gf-form">
-              <InlineFormLabel
-                width={7}
-                tooltip="Comma-separated list of consul keys which should be used as column headers."
-              >
+              <InlineFormLabel width={7} tooltip="Comma-separated list of Consul keys which should be used as columns.">
                 Columns
               </InlineFormLabel>
               <input

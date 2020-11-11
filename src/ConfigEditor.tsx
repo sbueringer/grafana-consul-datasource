@@ -60,6 +60,7 @@ export class ConfigEditor extends PureComponent<Props, State> {
             onChange={this.onConsulAddrChange}
             value={jsonData.consulAddr || ''}
             placeholder="http://localhost:8500"
+            tooltip="Specify a complete HTTP URL. This is usually one of the addresses specified in the Consul configuration under `addresses`. The default value when running Consul locally is `http://localhost:8500`. More details can be found in the Consul documentation. Consul is accessed by the Consul plugin backend, this means the URL needs to be accessible from the Grafana server."
           />
         </div>
 
@@ -74,6 +75,8 @@ export class ConfigEditor extends PureComponent<Props, State> {
               inputWidth={20}
               onReset={this.onResetConsulToken}
               onChange={this.onConsulTakenChange}
+              tooltip=" If Consul Token is set, it has to be a valid Consul Token which is able to read the data you want to access.
+            If Consul Token is not set, no token will be set on the Consul client."
             />
           </div>
         </div>

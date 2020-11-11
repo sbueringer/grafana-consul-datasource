@@ -23,8 +23,9 @@ export class DataSource extends DataSourceWithBackend<ConsulQuery, MyDataSourceO
       target.target = getTemplateSrv().replace(target.target, options.scopedVars);
     }
 
+    // store the targets in activeTargets so we can
+    // access the legendFormat later on via the refId
     let activeTargets: { [key: string]: any } = {};
-    // const activeTargets: any[] = [];
     for (const target of options.targets) {
       if (target.hide) {
         continue;
@@ -34,21 +35,19 @@ export class DataSource extends DataSourceWithBackend<ConsulQuery, MyDataSourceO
 
     return super.query(options).pipe(
       map((rsp: DataQueryResponse) => {
-        console.log('rsp', rsp);
-
         const finalRsp: DataQueryResponse = { data: [], state: LoadingState.Done };
+
         _.each(rsp.data, (data: any) => {
-          console.log('data', data);
           const legendFormat = activeTargets[data.refId].legendFormat;
+
+          // evaluate legendFormat if it is set
           if (!_.isEmpty(legendFormat)) {
-            console.log('legendFormat', legendFormat);
             data.fields[1].name = this.renderTemplate(legendFormat, data.fields[1].labels);
             data.fields[1].labels = [];
             finalRsp.data.push(data);
           } else {
             finalRsp.data.push(data);
           }
-          console.log('data2', data);
         });
         return finalRsp;
       })
@@ -56,41 +55,13 @@ export class DataSource extends DataSourceWithBackend<ConsulQuery, MyDataSourceO
   }
 
   renderTemplate(aliasPattern: string, aliasData: string) {
-    const aliasRegex = /\{\{\s*(.+?)\s*\}\}/g;
+    const aliasRegex = /{{\s*(.+?)\s*}}/g;
     return aliasPattern.replace(aliasRegex, function(match, g1) {
       if (aliasData[g1]) {
         return aliasData[g1];
       }
       return g1;
     });
-  }
-
-  async testDatasource() {
-    return getBackendSrv()
-      .fetch({
-        url: '/api/tsdb/query',
-        method: 'POST',
-        data: {
-          queries: [
-            {
-              type: 'test',
-              refId: 'test',
-              datasourceId: this.id,
-            },
-          ],
-        },
-      })
-      .pipe(
-        map((rsp: any) => {
-          if (rsp.status === 200) {
-            return { status: 'success', message: 'Data source is working', title: 'Success' };
-          }
-          return {
-            status: 'error',
-            message: 'Data source is not working: ' + rsp.message,
-          };
-        })
-      );
   }
 
   metricFindQuery(query: string): Promise<MetricFindValue[]> {
