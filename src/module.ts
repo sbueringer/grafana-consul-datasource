@@ -1,17 +1,9 @@
-import { ConsulDatasource } from './datasource';
-import { ConsulDatasourceQueryCtrl } from './query_ctrl';
+import { DataSourcePlugin } from '@grafana/data';
+import { DataSource } from './DataSource';
+import { ConfigEditor } from './ConfigEditor';
+import { QueryEditor } from './QueryEditor';
+import { ConsulQuery, MyDataSourceOptions } from './types';
 
-class ConsulConfigCtrl {
-  static templateUrl = 'partials/config.html';
-}
-
-class ConsulQueryOptionsCtrl {
-  static templateUrl = 'partials/query.options.html';
-}
-
-export {
-    ConsulDatasource as Datasource,
-    ConsulConfigCtrl as ConfigCtrl,
-    ConsulQueryOptionsCtrl as QueryOptionsCtrl,
-    ConsulDatasourceQueryCtrl as QueryCtrl,
-};
+export const plugin = new DataSourcePlugin<DataSource, ConsulQuery, MyDataSourceOptions>(DataSource)
+  .setConfigEditor(ConfigEditor)
+  .setQueryEditor(QueryEditor);

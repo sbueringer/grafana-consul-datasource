@@ -3,39 +3,32 @@
   "id": "sbueringer-consul-datasource",
   "type": "datasource",
 
-  "partials": {
-    "config": "partials/config.html"
-  },
-
   "metrics": true,
-  "annotations": false,
   "backend": true,
-  "executable": "grafana-consul-plugin",
-
+  "executable": "gpx_Consul",
   "info": {
     "description": "Consul datasource plugin to integrate Consul key value data with Grafana.",
     "author": {
       "name": "Stefan Bueringer",
-      "url": "https://sbueringer.github.io/"
+      "url": "https://github.com/sbueringer"
     },
     "keywords": [
-      "consul",
-      "datasource"
+      "consul"
     ],
     "logos": {
-      "small": "img/Consul_VerticalLogo_MonochromeTonal.svg",
-      "large": "img/Consul_VerticalLogo_MonochromeTonal.svg"
+      "small": "img/Consul_VerticalLogo_FullColor.svg",
+      "large": "img/Consul_VerticalLogo_FullColor.svg"
     },
     "links": [
       {"name": "GitHub", "url": "https://github.com/sbueringer/grafana-consul-datasource"},
       {"name": "Apache License 2.0", "url": "https://github.com/sbueringer/grafana-consul-datasource/blob/master/LICENSE"}
     ],
-    "version": "0.1.5",
-    "updated": "2018-09-21"
+    "screenshots": [],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
   },
-
   "dependencies": {
-    "grafanaVersion": "3.x.x",
-    "plugins": [ ]
+    "grafanaVersion": "7.x.x",
+    "plugins": []
   }
 }

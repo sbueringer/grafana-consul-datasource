@@ -15,12 +15,11 @@ The data can be used in **table** and **single-stat** panels. The following expl
 
 ## Adding the datasource
 
-1. Open the side menu by clicking the Grafana icon in the top header.
-2. In the side menu in the Configuration section you should find a link named `Data Sources`.
-3. Click the `+ Add data source` button in the top header.
-4. Select Consul from the `Type` dropdown.
-5. Fill in the datasource name, the Consul address and the Consul token
-6. Click the `Save & Test` button
+1. In the side menu in the `Configuration` section you should find a link named `Data Sources`.
+1. Click the `Add data source` button in the top header.
+1. Select `Consul`.
+1. Fill in the datasource name, the Consul address and the Consul token (or leave it empty)
+1. Click the `Save & Test` button
 
 ## Features
 

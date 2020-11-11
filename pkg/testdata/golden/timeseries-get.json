@@ -1,0 +1,26 @@
+{
+  "Responses": {
+    "abc": {
+      "Frames": [
+        {
+          "Name": "registry/apiregistration.k8s.io/apiservices/v1beta1.rbac.authorization.k8s.io/spec/groupPriorityMinimum",
+          "Fields": [
+            {
+              "Name": "time",
+              "Labels": null,
+              "Config": null
+            },
+            {
+              "Name": "values",
+              "Labels": null,
+              "Config": null
+            }
+          ],
+          "RefID": "",
+          "Meta": null
+        }
+      ],
+      "Error": null
+    }
+  }
+}

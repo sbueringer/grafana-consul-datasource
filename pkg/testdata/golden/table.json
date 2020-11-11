@@ -1,0 +1,51 @@
+{
+  "Responses": {
+    "xyz": {
+      "Frames": [
+        {
+          "Name": "table",
+          "Fields": [
+            {
+              "Name": "name",
+              "Labels": null,
+              "Config": null
+            },
+            {
+              "Name": "kind",
+              "Labels": null,
+              "Config": null
+            },
+            {
+              "Name": "apiVersion",
+              "Labels": null,
+              "Config": null
+            },
+            {
+              "Name": "group",
+              "Labels": null,
+              "Config": null
+            },
+            {
+              "Name": "groupPriorityMinimum",
+              "Labels": null,
+              "Config": null
+            },
+            {
+              "Name": "version",
+              "Labels": null,
+              "Config": null
+            },
+            {
+              "Name": "versionPriority",
+              "Labels": null,
+              "Config": null
+            }
+          ],
+          "RefID": "",
+          "Meta": null
+        }
+      ],
+      "Error": null
+    }
+  }
+}

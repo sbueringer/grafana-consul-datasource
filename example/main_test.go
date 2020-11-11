@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/hashicorp/consul/api"
 	"testing"
+
+	"github.com/hashicorp/consul/api"
 )
 
 func TestAnonymous(t *testing.T) {
@@ -26,5 +27,5 @@ func TestAnonymous(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf(leader)
+	fmt.Printf("%s", leader)
 }

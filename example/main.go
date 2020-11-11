@@ -39,6 +39,8 @@ func main() {
 
 func startServer() *testutil.TestServer {
 	srv, err := testutil.NewTestServerConfigT(&testing.T{}, func(c *testutil.TestServerConfig) {
+		//c.Stdout = ioutil.Discard
+		//c.Stderr = ioutil.Discard
 		c.Ports = &testutil.TestPortConfig{
 			HTTP: 8500,
 		}
@@ -76,7 +78,7 @@ func startServer() *testutil.TestServer {
 			panic(fmt.Errorf("error reading import json file %s: %v", file, err))
 		}
 		var entries []*entry
-		if err := json.Unmarshal([]byte(data), &entries); err != nil {
+		if err := json.Unmarshal((data), &entries); err != nil {
 			panic(fmt.Errorf("cannot unmarshal data: %s", err))
 		}
 
@@ -89,8 +91,8 @@ func startServer() *testutil.TestServer {
 			if _, err := consul.KV().Put(pair, nil); err != nil {
 				panic(fmt.Errorf("error! Failed writing data for key %s: %s", pair.Key, err))
 			}
-			//t.Logf("Imported: %s", pair.Key)
 		}
+		fmt.Printf("Imported: %s\n", file)
 	}
 
 	return srv

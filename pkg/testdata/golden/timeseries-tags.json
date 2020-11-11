@@ -1,0 +1,30 @@
+{
+  "Responses": {
+    "xyz": {
+      "Frames": [
+        {
+          "Name": "registry/apiregistration.k8s.io/apiservices/v1.authentication.k8s.io/",
+          "Fields": [
+            {
+              "Name": "time",
+              "Labels": null,
+              "Config": null
+            },
+            {
+              "Name": "values",
+              "Labels": {
+                "apiVersion": "apiregistration.k8s.io/v1beta1",
+                "kind": "APIService",
+                "name": "v1.authentication.k8s.io"
+              },
+              "Config": null
+            }
+          ],
+          "RefID": "",
+          "Meta": null
+        }
+      ],
+      "Error": null
+    }
+  }
+}

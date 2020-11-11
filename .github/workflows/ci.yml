@@ -1,0 +1,112 @@
+
+name: ci
+
+on:
+  push:
+    tags:
+    - 'v*.*.*'
+
+env:
+  CONSUL_VERSION: '1.8.4'
+  GOLANGCI_LINT_VERSION: '1.32.2'
+  MAGE_VERSION: '1.10.0'
+  NODE_VERSION: '12.x'
+  YARN_VERSION: '1.21.1'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Get the version & set it in package.json
+      id: get_version
+      run: |
+        VERSION=${GITHUB_REF/refs\/tags\/v/}
+        echo ::set-output name=VERSION::${VERSION}
+        sed -i "s/1.0.0/${VERSION}/g" package.json
+
+    - name: Use Node.js ${{ env.NODE_VERSION }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Install Consul
+      run: |
+        # Install some binaries when not running locally
+        if ! command -v sudo &> /dev/null
+        then
+            apt update
+            # procps required to execute syctl to find free ports for Consul
+            apt install zip unzip procps -y
+        fi
+
+        mkdir -p $GITHUB_WORKSPACE/bin
+        curl -sLo consul.zip https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip
+        unzip consul.zip
+        rm -rf consul.zip
+        mv consul $GITHUB_WORKSPACE/bin
+        echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.15
+
+    - name: Install Mage
+      uses: nickhstr/action-setup-mage@v1.0.0
+      with:
+        version: ${{ env.MAGE_VERSION }}
+
+    - name: Install golangci-lint
+      run: |
+        curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v${{ env.GOLANGCI_LINT_VERSION }}
+
+    - name: Build and test frontend
+      run: |
+        yarn install
+        ./node_modules/.bin/grafana-toolkit plugin:ci-build
+
+    - name: Build and test backend
+      run: |
+        mage -v buildAll
+        export CGO_ENABLED=0
+        mage -v lint
+        mage -v coverage
+
+    - name: Move results to ci folder and package distro
+      env:
+        GRAFANA_API_KEY: ${{ secrets.GRAFANA_API_KEY }}
+      run: |
+        ./node_modules/.bin/grafana-toolkit plugin:ci-build --finish
+        ./node_modules/.bin/grafana-toolkit plugin:ci-package
+
+        ls -la ./ci/jobs/package
+        ls -la ./ci/packages
+        ls -la ./ci/dist
+        ls -la ./ci/grafana-test-env
+
+    - name: Create release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: ${{ github.ref }}
+        body: |
+          TODO: change me
+        draft: true
+        prerelease: false
+
+    - name: Upload plugin to release
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./ci/packages/sbueringer-consul-datasource-${{ steps.get_version.outputs.VERSION }}.zip
+        asset_name: sbueringer-consul-datasource-${{ steps.get_version.outputs.VERSION }}.zip
+        asset_content_type: application/zip
