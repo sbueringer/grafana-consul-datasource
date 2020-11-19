@@ -9,6 +9,11 @@ This datasource lets you integrate key value data from Consul in Grafana dashboa
 
 ![Overview](https://github.com/sbueringer/grafana-consul-datasource/raw/master/src/images/overview.png)
 
+# Requirements
+
+* Grafana version 7.3.x or above are supported
+* All recent Consul versions should work
+
 # Usage
 
 The data can be used in **table** and **single-stat** panels. The following explanations are based on the example available in the [example folder](https://github.com/sbueringer/grafana-consul-datasource/tree/master/example).
