@@ -32,6 +32,11 @@ jobs:
       with:
         node-version: ${{ env.NODE_VERSION }}
 
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.15
+
     - name: Install Consul
       run: |
         # Install some binaries when not running locally
@@ -49,15 +54,12 @@ jobs:
         mv consul $GITHUB_WORKSPACE/bin
         echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH
 
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: 1.15
-
     - name: Install Mage
-      uses: nickhstr/action-setup-mage@v1.0.0
-      with:
-        version: ${{ env.MAGE_VERSION }}
+      run: |
+        curl -sLo mage.tar.gz https://github.com/magefile/mage/releases/download/v1.10.0/mage_1.10.0_Linux-64bit.tar.gz
+        tar -xvf mage.tar.gz
+        rm -f mage.tar.gz LICENSE
+        mv mage $GITHUB_WORKSPACE/bin
 
     - name: Install golangci-lint
       run: |
