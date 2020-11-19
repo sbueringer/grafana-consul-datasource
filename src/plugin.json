@@ -16,8 +16,8 @@
       "consul"
     ],
     "logos": {
-      "small": "img/Consul_VerticalLogo_FullColor.svg",
-      "large": "img/Consul_VerticalLogo_FullColor.svg"
+      "small": "images/Consul_VerticalLogo_FullColor.svg",
+      "large": "images/Consul_VerticalLogo_FullColor.svg"
     },
     "links": [
       {"name": "GitHub", "url": "https://github.com/sbueringer/grafana-consul-datasource"},
