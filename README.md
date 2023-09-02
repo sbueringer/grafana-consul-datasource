@@ -1,3 +1,5 @@
+# ⚠️ This project has been archived ⚠️
+
 
 # Grafana datasource for Consul
 
